@@ -1,0 +1,12 @@
+<phpdox xmlns="http://phpdox.de/config">
+ <project name="Unochapeco" source="../src" workdir="_reports/phpdox">
+  <collector publiconly="false">
+   <include mask="*.php" />
+   <exclude mask="*Autoload.php" />
+  </collector>
+
+  <generator output="_reports">
+   <build engine="html" enabled="true" output="api"/>
+  </generator>
+ </project>
+</phpdox>
