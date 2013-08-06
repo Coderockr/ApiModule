@@ -9,11 +9,12 @@ use Core\Model\TimeStampedEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entidade permission
- * 
+ * Permission entity
+ *
  * @category Api
  * @package Model
  * @author  Elton Minetto<eminetto@coderockr.com>
+ * @author  Mateus Guerra<mateus@coderockr.com>
  *
  * @ORM\Entity
  * @ORM\Table(name="ApiPermission")
@@ -40,7 +41,7 @@ class Permission extends TimeStampedEntity
     protected $client; 
 
     /**
-     * Configura os filtros dos campos da entidade
+     * Configuration of the Entity's filters
      *
      * @return Zend\InputFilter\InputFilter
      */

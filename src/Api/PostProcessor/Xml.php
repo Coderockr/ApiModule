@@ -1,12 +1,13 @@
 <?php
 
 namespace Api\PostProcessor;
+
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 
 /**
- * Classe concreta que retorna XML
+ * Concrete class that returns JSON
  * 
  * @category Api
  * @package PostProcessor
@@ -15,7 +16,7 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
 class Xml extends AbstractPostProcessor
 {
     /**
-     * Retorna os cabeçalhos e conteúdo no formato XML
+     * Returns the content and headers in XML format
      */
     public function process()
     {

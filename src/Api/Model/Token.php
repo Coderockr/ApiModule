@@ -9,7 +9,7 @@ use Core\Model\TimeStampedEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entidade token
+ * Token entity
  * 
  * @category Api
  * @package Model
@@ -57,7 +57,7 @@ class Token extends TimeStampedEntity
     protected $logCollection;
 
     /**
-     * Configura os filtros dos campos da entidade
+     * Configuration of the Entity's filters
      *
      * @return Zend\InputFilter\InputFilter
      */

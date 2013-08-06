@@ -1,11 +1,4 @@
 <?php
-/**
- * Classe responsável pelo acesso REST das entidades
- * 
- * @category Api
- * @package  Controller
- * @author   Elton Minetto <eminetto@coderockr.com>
- */
 
 namespace Api\Controller;
 
@@ -13,6 +6,14 @@ use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\Mvc\MvcEvent;
 use Core\Model\EntityException;
 
+/**
+ * Class responsable for Entities REST access
+ * 
+ * @category Api
+ * @package  Controller
+ * @author   Elton Minetto <eminetto@coderockr.com>
+ * @author   Mateus Guerra <mateus@coderockr.com>
+ */
 class RestController extends AbstractRestfulController
 {
     
@@ -37,7 +38,7 @@ class RestController extends AbstractRestfulController
     } 
 
     /**
-     * Retorna uma lista de entidades
+     * Returns the entities list
      *
      * http://zf2.dev/api/v1/album.album.json
      * http://zf2.dev/api/v1/album.album.xml
@@ -89,12 +90,6 @@ class RestController extends AbstractRestfulController
         }
 
         $queryBuilder->select('e');
-
-        // $queryBuilder->select('e')
-        //              ->where('u.id = ?1')
-        //              ->orderBy('u.name', 'ASC');
-        
-        // $fields, $where, $limit, $offset
            
         $result = $queryBuilder->getQuery()->getResult();
 
@@ -104,48 +99,46 @@ class RestController extends AbstractRestfulController
             return $response;
         }
 
-        $lang = $this->getRequest()->getHeaders('lang');
+        // $lang = $this->getRequest()->getHeaders('lang');
        
-        if ($lang) {
-            if (!isset($_SESSION)) {
-                session_start();
-            }
-            $lang = $lang->getFieldValue();
+        // if ($lang) {
+        //     if (!isset($_SESSION)) {
+        //         session_start();
+        //     }
+        //     $lang = $lang->getFieldValue();
 
-            switch ($lang) {
-                case 'pt-BR':
-                case 'pt-PT':
-                case 'pt':
-                    $lang = 'pt_BR';  
-                    break;
-                case 'en-US':
-                case 'en':
-                case 'en-GB':
-                    $lang = 'en_US';  
-                    break;
-                case 'es-ES':
-                case 'es':
-                    $lang = 'es_ES';  
-                    break;
-                default:
-                    $lang = 'en_US';  
-                    break;
-            }
+        //     switch ($lang) {
+        //         case 'pt-BR':
+        //         case 'pt-PT':
+        //         case 'pt':
+        //             $lang = 'pt_BR';  
+        //             break;
+        //         case 'en-US':
+        //         case 'en':
+        //         case 'en-GB':
+        //             $lang = 'en_US';  
+        //             break;
+        //         case 'es-ES':
+        //         case 'es':
+        //             $lang = 'es_ES';  
+        //             break;
+        //         default:
+        //             $lang = 'en_US';  
+        //             break;
+        //     }
 
-            $_SESSION['lang'] = $lang;
+        //     $_SESSION['lang'] = $lang;
         
-        }
+        // }
 
         return $result;
     }
 
 
     /**
-     * Retorna uma única entidade
+     * Retuns only one entity
      *  
-     * http://zf2.dev:8080/api/v1/album.album.json/1
-     * 
-     * @param int $id  Id da entidade
+     * @param int $id  Entity Id
      * 
      * @return array
      */
@@ -162,9 +155,9 @@ class RestController extends AbstractRestfulController
     }
 
     /**
-     * Cria uma nova entidade
+     * Creates a new Entity
      *
-     * @param array $data  Dados da entidade sendo salva
+     * @param array $data  Entity data
      * 
      * @return array
      */
@@ -179,11 +172,11 @@ class RestController extends AbstractRestfulController
     }
 
     /**
-     * Atualiza uma entidade
-     * @param  int $id O código da entidade a ser atualizada
-     * @param  array $data Os dados sendo alterados
+     * Entity update
+     * @param int $id  Entity Id
+     * @param array $data  Entity updated data
      * 
-     * @return array       Retorna a entidade atualizada
+     * @return array       Returns the updated Entity
      */
     public function update($id, $data)
     {
@@ -197,9 +190,9 @@ class RestController extends AbstractRestfulController
     }
 
     /**
-     * Exclui uma entidade
+     * Deletes an Entity
      *
-     * @param  int $id Id da entidade sendo excluída
+     * @param  int $id Entity id for deletion
      * 
      * @return int 
      */
@@ -213,7 +206,7 @@ class RestController extends AbstractRestfulController
     }
 
     /**
-     * Retorna uma instância da entidade
+     * Returns an Entity instance
      *
      * @return Core\Model\Entity
      */
@@ -229,7 +222,7 @@ class RestController extends AbstractRestfulController
     }
 
     /**
-     * Retorna uma instância da entidade
+     * Returns an Entity table
      *
      * @return Core\Mode\Entity
      */
@@ -246,11 +239,11 @@ class RestController extends AbstractRestfulController
     }
 
     /**
-     * Retorna os parâmetros da entidade a ser executada
-     * @param string $module  Módulo da entidade
-     * @param string $entity  Nome da entidade
+     * Returns the parameters of the Entity to be executed
+     * @param string $module  Entity module
+     * @param string $entity  Entity name
      * 
-     * @return string          Classe da entidade
+     * @return string         Entity class
      */
     private function getCallParameters($module, $entity)
     {

@@ -3,7 +3,7 @@
 namespace Api\PostProcessor;
 
 /**
- * Classe concreta que retorna uma imagem
+ * Concrete class that returns an image
  * 
  * @category Api
  * @package PostProcessor
@@ -12,7 +12,7 @@ namespace Api\PostProcessor;
 class Image extends AbstractPostProcessor
 {
     /**
-     * Retorna os cabeçalhos de uma imagem
+     * Returns an image headers
      */
     public function process()
     {

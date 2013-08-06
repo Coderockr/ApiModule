@@ -16,8 +16,7 @@ class RpcController extends AbstractActionController
 {
 
     /**
-     * Executa o serviço
-     *
+     * Performs the service
      * 
      * http://zf2.dev:8080/rpc/v1/album.getAllAlbums.json
      * http://zf2.dev:8080/rpc/v1/album.getAllAlbums.xml
@@ -45,10 +44,10 @@ class RpcController extends AbstractActionController
     }
 
     /**
-     * Retorna os parâmetros do serviço a ser executado
-     * @param  string $module  Módulo do serviço
-     * @param  string $service Nome do serviço
-     * @return array           Array de parâmetros
+     * Returns the parameters of the Service to be executed
+     * @param  string $module  Service module
+     * @param  string $service Service name
+     * @return array           Parameters array
      */
     private function getCallParameters($module, $service)
     {

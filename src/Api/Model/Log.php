@@ -10,11 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
 
 /**
- * Entidade log
+ * Log entity
  * 
  * @category Api
  * @package Model
  * @author  Elton Minetto<eminetto@coderockr.com>
+ * @author  Mateus Guerra<mateus@coderockr.com>
  *
  * @ORM\Entity
  * @ORM\Table(name="ApiLog")
@@ -45,7 +46,7 @@ class Log extends TimeStampedEntity
     protected $token;
 
     /**
-     * Configura os filtros dos campos da entidade
+     * Configuration of the Entity's filters
      *
      * @return Zend\InputFilter\InputFilter
      */

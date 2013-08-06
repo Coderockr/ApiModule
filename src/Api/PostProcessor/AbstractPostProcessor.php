@@ -3,7 +3,7 @@
 namespace Api\PostProcessor;
 
 /**
- * Classe abstrata usada pelos pós-processadores
+ * Absract class use by the post-proccessors
  * 
  * @category Api
  * @package PostProcessor

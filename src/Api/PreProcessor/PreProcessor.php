@@ -7,7 +7,7 @@ use Api\Service\Auth;
 use Core\Service\ParameterFactory;
 
 /**
- * Responsável por fazer o pré-processamento das requisições da APi
+ * Class responsable for pre-processing API requisitions
  * 
  * @category Api
  * @package PreProcessor
@@ -16,8 +16,8 @@ use Core\Service\ParameterFactory;
 class PreProcessor 
 {
     /**
-     * Executado no pré-processamento, antes de qualquer action
-     * Verifica se o usuário tem permissão de acessar o recurso
+     * Executed in pre-processing, before any action.
+     * Verifies the user's resource access permission
      * 
      * @param MvcEvent $e
      * @return null|\Zend\Http\PhpEnvironment\Response
@@ -31,7 +31,7 @@ class PreProcessor
         $routeName = $routeMatch->getMatchedRouteName();
         $module = $routeMatch->getParam('module', false);
 
-        //verifica se a entidade ou o service sendo invocados estão disponíveis
+        // Verifies the availability of the chosen entity/service
         switch ($routeName) {
             case 'restful':
                 $request = $routeMatch->getParam('entity', false);
@@ -83,10 +83,10 @@ class PreProcessor
     }
 
     /**
-     * Executa o teste da autorização
-     * @param  Auth $auth      Serviço de auth
-     * @param  Header $token   Token enviado na requisição
-     * @param  string $request Serviço sendo requisitado
+     * Performs the authorization test
+     * @param  Auth $auth      Auth service
+     * @param  Header $token   Requisition token
+     * @param  string $request Requested service
      * @return boolean
      */
     private function checkAuthorization($auth, $token, $request)
@@ -109,8 +109,8 @@ class PreProcessor
     }
 
     /**
-     * Verifica se a api está sendo acessada de um ambiente de testes 
-     * e configura o ambiente
+     * Verifies if the API is being accessed by a tests environment, 
+     * and configures the environment accordingly
      * @param  MvcEvent $e Evento
      * @return void
      */
@@ -129,7 +129,6 @@ class PreProcessor
                 case 'jenkins':
                     putenv("ENV=jenkins");
                     break;
-                
             }
         }
         return;

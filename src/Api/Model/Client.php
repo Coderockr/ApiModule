@@ -10,11 +10,12 @@ use Core\Model\TimeStampedEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entidade client
+ * Client Entity
  * 
  * @category Api
  * @package Model
  * @author  Elton Minetto<eminetto@coderockr.com>
+ * @author  Mateus Guerra<mateus@coderockr.com>
  * 
  * @ORM\Entity
  * @ORM\Table(name="ApiClient")
@@ -73,7 +74,7 @@ class Client extends TimeStampedEntity
 
 
     /**
-     * Configura os filtros dos campos da entidade
+     * Configuration of the Entity's filters
      *
      * @return Zend\InputFilter\InputFilter
      */

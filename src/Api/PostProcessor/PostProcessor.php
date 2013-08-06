@@ -5,7 +5,7 @@ use Zend\Mvc\MvcEvent;
 use Api\Service\Auth;
 
 /**
- * Responsável por fazer o pós-processamento das requisições da APi
+ * Class responsable for post-processing API requisitions
  * 
  * @category Api
  * @package PostProcessor
@@ -14,8 +14,8 @@ use Api\Service\Auth;
 class PostProcessor
 {
     /**
-     * Executado no pós-processamento, após qualquer action
-     * Verifica o formato requisitado (json ou xml) e gera a saída correspondente
+     * Executed in post-processing, after any action.
+     * Verifies the requested format and generates the correspondent response (json ou xml)
      * 
      * @param MvcEvent $e
      * @return null|\Zend\Http\PhpEnvironment\Response
@@ -27,7 +27,7 @@ class PostProcessor
         $routeName = $routeMatch->getMatchedRouteName();
         $module = $routeMatch->getParam('module', false);
 
-        //verifica se a entidade ou o service sendo invocados estão disponíveis
+        // Verifies the availability of the chosen entity/service
         switch ($routeName) {
             case 'restful':
                 $request = $routeMatch->getParam('entity', false);
@@ -47,7 +47,9 @@ class PostProcessor
                 break;
         }
 
-        /** @var \Zend\Di\Di $di */
+        /**
+        * @var \Zend\Di\Di $di 
+        */
         $di = $e->getTarget()->getServiceLocator()->get('di');
 
         if ($formatter !== false) {
@@ -60,7 +62,9 @@ class PostProcessor
                 $vars = $e->getResult();
             }
 
-            /** @var PostProcessor\AbstractPostProcessor $postProcessor */
+            /** 
+            * @var PostProcessor\AbstractPostProcessor $postProcessor 
+            */
             $postProcessor = $di->get($formatter . '-pp', array(
                 'response' => $e->getResponse(),
                 'vars' => $vars,

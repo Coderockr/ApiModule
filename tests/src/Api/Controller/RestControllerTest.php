@@ -8,7 +8,7 @@ use Api\Model\Token;
 use Api\Model\Client;
 
 /**
- * Testes relacionados ao RestController
+ * RestController functional tests
  * 
  * @category Api
  * @package Controller

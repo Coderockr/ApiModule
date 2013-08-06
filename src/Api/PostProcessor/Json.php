@@ -7,7 +7,7 @@ use JMS\Serializer\SerializationContext;
 use Zend\I18n\Translator\Translator;
 
 /**
- * Classe concreta que retorna JSON
+ * Concrete class that returns JSON
  * 
  * @category Api
  * @package PostProcessor
@@ -19,7 +19,7 @@ class Json extends AbstractPostProcessor
     protected $translator;
 
     /**
-     * Retorna os cabeçalhos e conteúdo no formato JSON
+     * Returns the content and headers in JSON format
      */
     public function process($class = null)
     {
@@ -65,21 +65,21 @@ class Json extends AbstractPostProcessor
         $this->_response->setHeaders($headers);
     }
 
-    /**
-     * Faz  tradução do conteúdo do array
-     * @param  array $content 
-     * @return array Conteúdo traduzido
-     */
-    private function translate($content)
-    {
-        $result = array();
-        foreach ($content as $key => $value) {
-            if (is_array($value)) {
-                $result[$key] = $this->translate($value);
-                continue;
-            }
-            $result[$key] = $this->translator->translate($value);
-        }
-        return $result;
-    }
+    // /**
+    //  * Faz  tradução do conteúdo do array
+    //  * @param  array $content 
+    //  * @return array Conteúdo traduzido
+    //  */
+    // private function translate($content)
+    // {
+    //     $result = array();
+    //     foreach ($content as $key => $value) {
+    //         if (is_array($value)) {
+    //             $result[$key] = $this->translate($value);
+    //             continue;
+    //         }
+    //         $result[$key] = $this->translator->translate($value);
+    //     }
+    //     return $result;
+    // }
 }
