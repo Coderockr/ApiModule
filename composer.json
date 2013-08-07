@@ -1,0 +1,16 @@
+{
+    "name": "coderockr/apimobile",
+    "description": "Mobile Api for Zend Framework 2",
+    "type": "library",
+    "keywords": [
+        "framework",
+        "zf2",
+	"api",
+	"mobile"
+    ],
+    "homepage": "http://coderockr.com/",
+    "license": "BSD-3-Clause",
+    "require": {
+        "php": ">=5.3.3"
+    }
+}
