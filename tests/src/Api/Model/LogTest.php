@@ -6,11 +6,12 @@ use Api\Model\Log;
 use Zend\InputFilter\InputFilterInterface;
 
 /**
- * Testes relacionados a entidade Log
+ * Log entity related tests
  * 
  * @category Api
  * @package Model
  * @author  Elton Minetto<eminetto@coderockr.com>
+ * @author  Mateus Guerra<mateus@coderockr.com>
  */
 
 /**
@@ -18,6 +19,10 @@ use Zend\InputFilter\InputFilterInterface;
  */
 class LogTest extends ModelTestCase
 {
+    
+    /**
+     * Tests the existance of filters
+     */
     public function testGetInputFilter()
     {
         $log = new Log();
@@ -40,15 +45,15 @@ class LogTest extends ModelTestCase
     /**
      * @expectedException Core\Model\EntityException
      */
-    public function testInputFilterInvalido()
+    public function testInvalidInputFilter()
     {
         $log = new Log();
-        //recurso só pode ter 100 caracteres
+        //Resource can only have 100 characters
         $log->resource = 'Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos';
     }        
 
     /**
-     * Teste de inserção de um log válido
+     * Tests a valid log insertion
      */
     public function testInsert()
     {
@@ -65,7 +70,7 @@ class LogTest extends ModelTestCase
     /**
      * @expectedException Doctrine\DBAL\DBALException
      */
-    public function testInsertInvalido()
+    public function testInvalidInsert()
     {
         $log = new Log();
         $log->recurso = 'teste';
@@ -74,9 +79,13 @@ class LogTest extends ModelTestCase
         $this->em->flush();
     }    
 
+    /**
+     * Creates a new token to be used in the tests
+     * @return Api\Model\Token   A new token registry
+     */
     private function addToken() 
     {
-        $client = $this->getClient();
+        $client = $this->addClient();
         $access_token = '1111';
         $token = new Token();
         $token->client = $client;
@@ -90,7 +99,11 @@ class LogTest extends ModelTestCase
         return $token;
     }
 
-    private function getClient()
+    /**
+     * Creates a new user to be used in the tests
+     * @return Api\Model\User   A new user registry
+     */
+    private function addClient()
     {
         $client = new Client();
         $client->name = 'Steve Jobs';

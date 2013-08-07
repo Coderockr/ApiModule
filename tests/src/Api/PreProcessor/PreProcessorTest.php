@@ -13,11 +13,12 @@ use DateTime;
 use Core\Service\ParameterFactory;
 
 /**
- * Testes relacionados ao pré-processaor
+ * Pre-processor related tests
  * 
  * @category Api
  * @package PostProcessor
  * @author  Elton Minetto<eminetto@coderockr.com>
+ * @author  Mateus Guerra<mateus@coderockr.com>
  */
 
 /**
@@ -30,7 +31,7 @@ class PreProcessorTest extends ControllerTestCase
     protected $controllerRoute = 'restful';
 
     /**
-     * Setup dos testes
+     * Tests setup
      * @return void
      */
     public function setup()
@@ -46,10 +47,10 @@ class PreProcessorTest extends ControllerTestCase
     /**
      * @expectedException Exception
      * @expectedExceptionMessage Token requirido
+     * Tests for when the user doesn't send token
      */
-    public function testProcessSemToken()
+    public function testProcessWithoutToken()
     {
-        //testa caso o usuário não envie um token
         $this->routeMatch->setParam('entity', 'log');
         $this->routeMatch->setMatchedRouteName('restful');
         $logA = $this->buildLog();
@@ -63,10 +64,10 @@ class PreProcessorTest extends ControllerTestCase
     /**
      * @expectedException Exception
      * @expectedExceptionMessage Token inválido
+     * Tests for when the user sends an invalid token
      */
-    public function testProcessTokenInvalido()
+    public function testProcessInvalidToken()
     {
-        //testa caso o usuário envie um token inválido
         $this->routeMatch->setParam('entity', 'log');
         $this->routeMatch->setMatchedRouteName('restful');
         $logA = $this->buildLog();
@@ -79,10 +80,10 @@ class PreProcessorTest extends ControllerTestCase
     }
 
     /**
-     * Testa com um token válido
+     * Tests for when the user sends an valid token
      * @return void
      */
-    public function testProcessTokenValido()
+    public function testProcessValidToken()
     {
         $pp = new PreProcessor;
         $logA = $this->buildLog();
@@ -91,7 +92,7 @@ class PreProcessorTest extends ControllerTestCase
         $client = $this->addClient();
         $permission = $this->addPermission($client, '*');
 
-        $token = $this->geraToken($client);
+        $token = $this->addToken($client);
         $this->request->getHeaders()->addHeaders(array('Authorization' => $token));
 
         $this->routeMatch->setParam('entity', 'log');
@@ -112,16 +113,16 @@ class PreProcessorTest extends ControllerTestCase
     /**
      * @expectedException Exception
      * @expectedExceptionMessage Acesso negado
+     * Tests for when the user tries to access an unauthorized service/entity
      */
-    public function testProcessAcessoNaoPermitido()
+    public function testProcessNonPermittedAcess()
     {
-        //testa caso o usuário tente acessar um serviço/entidade que não tem permissão
         $pp = new PreProcessor;
         $logA = $this->buildLog();
         $logB = $this->buildLog();
         $client = $this->addClient();
         $permission = $this->addPermission($client, 'api.authenticate');
-        $token = $this->geraToken($client);
+        $token = $this->addToken($client);
         $this->request->getHeaders()->addHeaders(array('Authorization' =>$token));
         $cache = $this->getService('Cache');
         $cache->removeItem('api');
@@ -131,15 +132,17 @@ class PreProcessorTest extends ControllerTestCase
         $response = $this->controller->getResponse();
         $result = $pp->process($this->event);
     }
-
-    public function testProcessAcessoPermitido()
+    /**
+     * Tests for when the user tries to access an authorized service/entity
+     */
+    public function testProcessPermittedAcess()
     {
         $pp = new PreProcessor;
         $logA = $this->buildLog();
         $logB = $this->buildLog();
         $client = $this->addClient();
         $permission = $this->addPermission($client, 'api.log');
-        $token = $this->geraToken($client);
+        $token = $this->addToken($client);
         $this->request->getHeaders()->addHeaders(array('Authorization' =>$token));
         $cache = $this->getService('Cache');
         $cache->removeItem('api');
@@ -154,12 +157,12 @@ class PreProcessorTest extends ControllerTestCase
 
     /**
      * @expectedException Exception
-     * @expectedExceptionMessage Não permitido
+     * @expectedExceptionMessage Not permitted
+     * Tests if the user tries to access a non-existant resource
+     * or not configured for remote access
      */
-    public function testProcessRecursoNaoExistente()
+    public function testProcessNonExistantResource()
     {
-        //testa caso o usuário tente acessar um recurso que não existe
-        //ou não está configurado para acesso remoto
         $pp = new PreProcessor;
         $logA = $this->buildLog();
         $logB = $this->buildLog();
@@ -167,7 +170,7 @@ class PreProcessorTest extends ControllerTestCase
         $client = $this->addClient();
         $permission = $this->addPermission($client, 'api.log');
 
-        $token = $this->geraToken($client);
+        $token = $this->addToken($client);
         $this->request->getHeaders()->addHeaders(array('Authorization' => $token));
 
         $this->routeMatch->setParam('entity', 'nao_existe');
@@ -199,11 +202,12 @@ class PreProcessorTest extends ControllerTestCase
     }
 
     /**
+     * Creates a new token to be used in the tests
      * Gera um novo token para ser usado nos testes
-     * @param  Api\Model\Client $client O client que está acessando
-     * @return string    Um novo token
+     * @param  Api\Model\Client $client The accessing client
+     * @return string    A new access token
      */
-    private function geraToken($client)
+    private function addToken($client)
     {
         $parameters = ParameterFactory::factory(
                         array(
@@ -212,7 +216,7 @@ class PreProcessorTest extends ControllerTestCase
                         )
         );
 
-        //garante que o adapter usado é o dos testes
+        //Garanties that the used adapter is for tests
         $dbAdapter = $this->serviceManager->get('dbAdapter');
         $authService = $this->getService('Api\Service\Auth');
         $result = $authService->authenticate($parameters);
@@ -220,8 +224,8 @@ class PreProcessorTest extends ControllerTestCase
     }
 
     /**
-     * Gera um novo registro para os testes
-     * @return Api\Model\Client Um novo client
+     * Generates a new client for tests
+     * @return Api\Model\Client a new client
      */
     private function addClient()
     {
@@ -238,10 +242,10 @@ class PreProcessorTest extends ControllerTestCase
     } 
 
     /**
-     * Adiciona um novo registro para os testes
-     * @param Api\Model\Client $client O client acessando o recurso
-     * @param string $recurso O recurso sendo acessado
-     * @return Api\Model\Permission   Um novo registro de Permission
+     * Creates a new permission registry for tests
+     * @param Api\Model\Client $client The client accessing the resource
+     * @param string $recurso The resource being accessed
+     * @return Api\Model\Permission   A new permission entity for tests
      */
     private function addPermission($client, $resource)
     {

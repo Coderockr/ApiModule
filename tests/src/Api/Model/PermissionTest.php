@@ -7,10 +7,23 @@ use Api\Model\Permission;
 use Zend\InputFilter\InputFilterInterface;
 
 /**
+ * Permission entity related tests
+ * 
+ * @category Api
+ * @package Model
+ * @author  Elton Minetto<eminetto@coderockr.com>
+ * @author  Mateus Guerra<mateus@coderockr.com>
+ */
+
+/**
  * @group Model
  */
 class PermissionTest extends ModelTestCase
 {
+    
+    /**
+     * Tests the existance of filters
+     */
     public function testGetInputFilter()
     {
         $permission = new Permission();
@@ -35,19 +48,19 @@ class PermissionTest extends ModelTestCase
     /**
      * @expectedException Core\Model\EntityException
      */
-    public function testInputFilterInvalido()
+    public function testInvalidInputFilter()
     {
         $permission = new Permission();
-        //recurso só pode ter 100 caracteres
+        //Resource can only have 100 characters
         $permission->resource = 'Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos';
     }        
 
     /**
-     * Teste de inserção de uma permission válida
+     * Tests a valid permission insertion
      */
     public function testInsert()
     {
-        $client = $this->addCliente();
+        $client = $this->addClient();
         $permission = new Permission();
         $permission->client = $client;
         $permission->resource = ' * <br> ';
@@ -59,10 +72,12 @@ class PermissionTest extends ModelTestCase
         $this->assertNotNull($permission->created);
     }
 
-
+    /**
+     * Tests the update of a valid permission
+     */
     public function testUpdate()
     {
-        $client = $this->addCliente();
+        $client = $this->addClient();
         $permission = new Permission();
         $permission->cliente = $client;
         $permission->resource = ' * <br> ';
@@ -85,9 +100,12 @@ class PermissionTest extends ModelTestCase
 
     }
 
+    /**
+     * Tests a permission deletion
+     */
     public function testDelete()
     {
-        $client = $this->addCliente();
+        $client = $this->addClient();
         $permission = new Permission();
         $permission->client = $client;
         $permission->resource = ' * <br> ';
@@ -104,7 +122,11 @@ class PermissionTest extends ModelTestCase
         $this->assertNull($permission);
     }
 
-    private function addCliente()
+    /**
+     * Creates a new user to be used in the tests
+     * @return Api\Model\User   A new user registry
+     */
+    private function addClient()
     {
         $client = new Client();
         $client->name = 'Steve Jobs';

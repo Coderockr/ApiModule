@@ -8,11 +8,12 @@ use Api\Service\Auth;
 use Core\Service\ParameterFactory;
 
 /**
- * Testes relacionados ao serviço Auth
+ * Auth related tests
  * 
  * @category Api
  * @package Service
  * @author  Elton Minetto<eminetto@coderockr.com>
+ * @author  Mateus Guerra<mateus@coderockr.com>
  */
 
 /**
@@ -21,26 +22,25 @@ use Core\Service\ParameterFactory;
 class AuthTest extends ServiceTestCase
 {
     /**
-     * Uma senha válida para ser usada nos testes
+     * A valid password to be used in the tests
      * @var string
      */
     protected $validPassword  = '0febfd3464e60216072a60ea095b2ceb6c0d3e87';
     
     /**
-     * Cache usado para armazenar o token
+     * Cache used to store the token
      * @var Zend\Cache\Storage\Adapter
      */
     protected $cache;
 
     /**
-     * Uma instância do serviço Auth
+     * Auth service instance
      * @var Api\Service\Auth
      */
     protected $authService;
-    
 
     /**
-     * Faz o setup dos testes
+     * Tests setup
      * @return void
      */
     public function setup()
@@ -49,21 +49,21 @@ class AuthTest extends ServiceTestCase
         $this->cache = $this->getService('Cache');
         $this->cache->flush();
         $this->authService = $this->getService('Api\Service\Auth');
-        //deve usar o entityManager dos testes
+        //Must use the tests entityManager
         $this->authService->setEntityManager($this->em);
     }
     
     /**
-     * Faz o teste com credenciais válidas
+     * Tests the auth with valid credential
      * @return void
      */
-    public function testAutenticacaoValida() 
+    public function testValidAuthentication() 
     {
         
         $permission = $this->addPermission('*');
         $this->em->persist($permission);
 
-        $client = $this->addCliente();
+        $client = $this->addClient();
         $client->addPermission($permission);
         $client->password = $this->validPassword;
         $this->em->persist($client);
@@ -80,14 +80,14 @@ class AuthTest extends ServiceTestCase
         $result = $this->authService->authenticate($parameters);
         $this->assertEquals(count($result['access_token']), 1);
 
-        //verifica se criou registro na tabela Token
+        //Verifies if a token registry was created
         $token = $this->em
                       ->getRepository('Api\Model\Token')
                       ->findAll();
         $this->assertEquals(count($token), 1);
         $this->assertEquals($token[0]->token, $result['access_token']);
 
-        //verifica se está no cache
+        //Verifies if it's in cache
         $cached = $this->cache->getItem($result['access_token']);
         $this->assertEquals($cached['status'], Auth::VALID);
         $permission = $this->em
@@ -98,12 +98,12 @@ class AuthTest extends ServiceTestCase
 
     /**
      * @expectedException Exception
-     * @expectedExceptionMessage Login ou senha inválidos
+     * @expectedExceptionMessage Invalid login or password
+     * Tests the authentication with an invalid password
      */
-    public function testAutenticacaoInvalida() 
+    public function testInvalidAuthentication() 
     {
-        //faz o teste com uma senha inválida
-        $client = $this->addCliente();
+        $client = $this->addClient();
         $client->senha = $this->validPassword;
         $this->em->persist($client);
         $this->em->flush();
@@ -111,7 +111,7 @@ class AuthTest extends ServiceTestCase
         $parameters = ParameterFactory::factory(
             array(
                 'login' => $client->login,
-                'password' => 'senha invalida'
+                'password' => 'invalid password'
             )
         );
 
@@ -120,11 +120,11 @@ class AuthTest extends ServiceTestCase
 
     /**
      * @expectedException Exception
-     * @expectedExceptionMessage Parâmetros inválidos
+     * @expectedExceptionMessage Invalid parameters
      */
-    public function testAutenticacaoSemParametros() 
+    public function testAuthenticationWithoutParameters() 
     {
-        $client = $this->addCliente();
+        $client = $this->addClient();
         $client->senha = $this->validPassword;
         $this->em->persist($client);
         $this->em->flush();
@@ -136,15 +136,15 @@ class AuthTest extends ServiceTestCase
     }
 
     /**
-     * Faz o teste com um acesso permitido
+     * Tests the permitted access
      * @return void
      */
-    public function testAutorizacaoValida() 
+    public function testValidAuthorization() 
     {
         $permission = $this->addPermission('album.album');
         $this->em->persist($permission);
 
-        $client = $this->addCliente();
+        $client = $this->addClient();
         $client->addPermission($permission);
         $client->password = $this->validPassword;
         $this->em->persist($client);
@@ -154,7 +154,7 @@ class AuthTest extends ServiceTestCase
         $parameters = ParameterFactory::factory(
             array(
                 'login' => $client->login,
-                'password' => 'teste'
+                'password' => 'test'
             )
         );
         $result = $this->authService->authenticate($parameters);
@@ -171,15 +171,15 @@ class AuthTest extends ServiceTestCase
     }
 
     /**
-     * Testa o acesso a um resource com o token expirado no cache
+     * Tests a resource access with a cached expired token
      * @return void
      */
-    public function testAutorizacaoValidaCacheExpirado() 
+    public function testExpiredCachedValidAuthorization() 
     {
         $permission = $this->addPermission('album.album');
         $this->em->persist($permission);
 
-        $client = $this->addCliente();
+        $client = $this->addClient();
         $client->addPermission($permission);
         $client->password = $this->validPassword;
         $this->em->persist($client);
@@ -189,10 +189,10 @@ class AuthTest extends ServiceTestCase
         $parameters = ParameterFactory::factory(
             array(
                 'login' => $client->login,
-                'password' => 'teste'
+                'password' => 'test'
             )
         );
-        //garante que o adapter usado é o dos testes
+        //Garanties that the adapter user is for tests
         $result = $this->authService
                        ->authenticate($parameters);
 
@@ -209,14 +209,14 @@ class AuthTest extends ServiceTestCase
     }    
 
     /**
-     * Testa o acesso com um token inválido
+     * Tests the acces with a invalid tokenTesta o acesso com um token inválido
      * @return void
      */
-    public function testAutorizacaoInvalida() 
+    public function testInvalidAuthorization() 
     {
         $parameters = ParameterFactory::factory(
             array(
-                'token' => 'token invalido',
+                'token' => 'invalid token',
                 'resource' => 'album.album'
             )
         );
@@ -226,15 +226,15 @@ class AuthTest extends ServiceTestCase
     }
 
     /**
-     * Faz o teste acessando um resource que o usuário não tem permissão
+     * Tests an access to a resource that the user doesn't have permission
      * @return void
      */
-    public function testAutorizacaoNegada() 
+    public function testDeniedAuthorization() 
     {
         $permission = $this->addPermission('album.album');
         $this->em->persist($permission);
 
-        $client = $this->addCliente();
+        $client = $this->addClient();
         $client->addPermission($permission);
         $client->password = $this->validPassword;
         $this->em->persist($client);
@@ -244,11 +244,11 @@ class AuthTest extends ServiceTestCase
         $parameters = ParameterFactory::factory(
             array(
                 'login' => $client->login,
-                'password' => 'teste'
+                'password' => 'test'
             )
         );
         
-        //garante que o adapter usado é o dos testes
+        //Garanties that the adapter user is for tests
         $dbAdapter = $this->serviceManager->get('dbAdapter');
         $result = $this->authService
                        ->authenticate($parameters);
@@ -264,24 +264,25 @@ class AuthTest extends ServiceTestCase
     }
 
     /**
-     * Cria um novo registro para os testes
-     * @return Api\Model\Client   Um novo Client
-     */
-    private function addCliente()
+    * Creates a new user to be used in the tests
+    * @return Api\Model\User   A new user registry
+    */
+    private function addClient()
     {
         $client = new Client();
         $client->name = 'Steve Jobs';
         $client->login = 'steve';
-        $client->password = 'teste';
+        $client->password = '0febfd3464e60216072a60ea095b2ceb6c0d3e87';
         $client->status = 'ACTIVE';
         
+
         return $client;
     }
 
     /**
-     * Cria um novo registro para os testes
-     * @param string $resource O resource sendo acessado
-     * @return Api\Model\Permission  Um novo registro de Permission
+     * Creates a new permission registry for tests
+     * @param string $resource The resource being accessed
+     * @return Api\Model\Permission  A new permission registry
      */
     private function addPermission($resource)
     {
@@ -291,4 +292,3 @@ class AuthTest extends ServiceTestCase
     }
 
 }
-

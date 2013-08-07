@@ -13,6 +13,7 @@ use Api\Model\Client;
  * @category Api
  * @package Controller
  * @author  Elton Minetto<eminetto@coderockr.com>
+ * @author  Mateus Guerra<mateus@coderockr.com>
  */
 
 /**
@@ -23,19 +24,23 @@ class RestControllerTest extends ControllerTestCase
     protected $controllerFQDN = 'Api\Controller\RestController';
     protected $controllerRoute = 'restful';
 
-    //faz o setup dos testes
+    /**
+    * Does the tests setup
+    */  
     public function setup()
     {
         parent::setup();
-        //configura a rota e as opções
+        // rote and options configuration
         $this->routeMatch->setParam('module', 'api');
         $this->routeMatch->setParam('entity', 'log');
         $this->routeMatch->setParam('formatter', 'json');
     }    
 
+    /**
+    * Tests the action that returns the table registries
+    */  
     public function testGetList()
     {
-        //testa a ação que retorna todos os registro da tabela
         $logA = $this->buildLog();
         $logB = $this->buildLog();
         $result = $this->controller->dispatch($this->request) ;
@@ -45,9 +50,11 @@ class RestControllerTest extends ControllerTestCase
         $this->assertEquals(2, count($result));
     }
 
+    /**
+    * Tests the action that returns the table registries
+    */  
     public function testGetListExtraParametersFields()
     {
-        //testa a ação que retorna todos os registro da tabela
         $logA = $this->buildLog();
         $logB = $this->buildLog();
 
@@ -62,9 +69,11 @@ class RestControllerTest extends ControllerTestCase
 
     }
 
+    /**
+    * Tests the action that returns the table registries
+    */  
     public function testGetListExtraParametersLimit()
     {
-        //testa a ação que retorna todos os registro da tabela
         $logA = $this->buildLog();
         $logB = $this->buildLog();
 
@@ -76,9 +85,11 @@ class RestControllerTest extends ControllerTestCase
         $this->assertEquals(1, count($result));
     }
 
+    /**
+    * Tests the action that returns the table registries
+    */  
     public function testGetListExtraParametersOffset()
     {
-        //testa a ação que retorna todos os registro da tabela
         $logA = $this->buildLog();
         $logB = $this->buildLog();
 
@@ -91,9 +102,11 @@ class RestControllerTest extends ControllerTestCase
         $this->assertEquals($logB->resource, $result[0]->resource);
     }
 
+    /**
+    * Tests the action that returns the table registries
+    */   
     public function testGetListExtraParametersWhere()
     {
-        //testa a ação que retorna todos os registro da tabela
         $logA = $this->buildLog();
         $logB = $this->buildLog('widget');
 
@@ -104,10 +117,12 @@ class RestControllerTest extends ControllerTestCase
         $this->assertEquals(1, count($result));
         $this->assertEquals($logB->resource, $result[0]->resource);
     }
-
+ 
+    /**
+    * Tests the action that returns the table registries
+    */   
     public function testGetListExtraParametersMultiple()
     {
-        //testa a ação que retorna todos os registro da tabela
         $logA = $this->buildLog();
         $widgets = array();
         for($i=0; $i<10; $i++) {
@@ -127,9 +142,11 @@ class RestControllerTest extends ControllerTestCase
         $this->assertFalse(isset($result->token));
     }
 
+    /**
+    * Tests the action that returns the table registries
+    */   
     public function testGetListNotFound()
     {
-        //testa a ação que retorna todos os registro da tabela
         $logA = $this->buildLog();
 
         $this->request->getQuery()->set('resource', 'widget');
@@ -139,10 +156,11 @@ class RestControllerTest extends ControllerTestCase
         $this->assertEquals(404, $response->getStatusCode());
     }
 
-
+    /**
+    * Tests the action that returns the table registries
+    */   
     public function testGet()
     {
-        //testa a ação que retorna um registro específico
         $logA = $this->buildLog();
         $logB = $this->buildLog();
 
@@ -153,7 +171,10 @@ class RestControllerTest extends ControllerTestCase
         $this->assertEquals($logA->resource, $result->resource);
         $this->assertEquals(1, $result->id);
     }
-
+    
+    /**
+    * Tests when action doesn't found what was being requested
+    */  
     public function testGetNotFound()
     {
 
@@ -163,10 +184,11 @@ class RestControllerTest extends ControllerTestCase
         $this->assertEquals(404, $response->getStatusCode());
     }
 
-
+    /**
+    * Tests the action that creates a registry
+    */   
     public function testCreate()
     {
-        //testa a ação que faz a criação de um registro
         $this->request->setMethod('post');
         $this->request->getPost()->set('token_id', 1);
         $this->request->getPost()->set('resource', '*');
@@ -177,11 +199,13 @@ class RestControllerTest extends ControllerTestCase
         
         $this->assertEquals('*', $result->resource);
         $this->assertEquals(1, $result->id);
-    }    
+    }  
 
+    /**
+     * Tests the update action
+     */
     public function testUpdateRest()
     {
-        //testa a ação de atualização
         $log = $this->buildLog();
         $this->request->setMethod('put');
         $this->request->setContent('resource=api.log');
@@ -197,9 +221,11 @@ class RestControllerTest extends ControllerTestCase
 
     }    
 
+    /**
+     * Testes the delete action
+     */ 
     public function testDelete()
     {
-        //testa a ação de exclusão
         $log = $this->buildLog();
         $this->request->setMethod('delete');
         $this->routeMatch->setParam('id', 1);
@@ -214,8 +240,8 @@ class RestControllerTest extends ControllerTestCase
     } 
 
     /**
-     * Cria um novo registro para ser usado nos testes
-     * @return Api\Model\Log    Um novo registro de Log
+     * Creates a new registry to be used in the tests
+     * @return Api\Model\Log    A new log registry
      */
     private function buildLog($resource = '*')
     {
@@ -234,7 +260,11 @@ class RestControllerTest extends ControllerTestCase
         
         return $log;
     }
-
+ 
+    /**
+     * Creates a new user to be used in the tests
+     * @return Api\Model\Client    A new client
+     */
     private function addClient()
     {
         $client = new Client();
