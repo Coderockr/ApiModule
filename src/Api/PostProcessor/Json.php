@@ -12,6 +12,7 @@ use Zend\I18n\Translator\Translator;
  * @category Api
  * @package PostProcessor
  * @author  Elton Minetto<eminetto@coderockr.com>
+ * @author  Mateus Guerra<mateus@coderockr.com>
  */
 class Json extends AbstractPostProcessor
 {   
@@ -50,36 +51,9 @@ class Json extends AbstractPostProcessor
             }
         }
 
-        // if(isset($_SESSION['lang'])) {
-        //     $lang = $_SESSION['lang'];
-        //     $this->translator = new Translator; 
-        //     $this->translator->setLocale($lang);
-        //     $this->translator->addTranslationFile('phparray','/tmp/'.$lang.'.php','default',$lang);
-        //     $arrayContents = json_decode($content, true);
-        //     $content = json_encode($this->translate($arrayContents));
-        // }
-       
         $this->_response->setContent($content);
         $headers = $this->_response->getHeaders();
         $headers->addHeaderLine('Content-Type', 'application/json');
         $this->_response->setHeaders($headers);
     }
-
-    // /**
-    //  * Faz  tradução do conteúdo do array
-    //  * @param  array $content 
-    //  * @return array Conteúdo traduzido
-    //  */
-    // private function translate($content)
-    // {
-    //     $result = array();
-    //     foreach ($content as $key => $value) {
-    //         if (is_array($value)) {
-    //             $result[$key] = $this->translate($value);
-    //             continue;
-    //         }
-    //         $result[$key] = $this->translator->translate($value);
-    //     }
-    //     return $result;
-    // }
 }
