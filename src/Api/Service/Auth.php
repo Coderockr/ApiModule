@@ -10,8 +10,8 @@ use Core\Service\ParameterSet;
 use Core\Service\ParameterFactory;
 
 /**
- * Serviço responsável pela autenticação, 
- * autorização e log de uso da api 
+ * Service responsable for authentication, 
+ * authorization and api log use. 
  * (Authentication, Authorization and Accounting)
  * 
  * @category Api
@@ -22,31 +22,31 @@ class Auth extends Service
 {
 
     /** 
-     * Token inválido 
+     * Invalid token
      * @var int
      */
     const INVALID = 0;
 
     /** 
-     * Token expirado
+     * Expired token
      * @var int
      */
     const EXPIRED = 1;
 
     /** 
-     * Acesso ao recurso negado
+     * Resourse access denied
      * @var int
      */
     const DENIED = 2;
 
     /** 
-     * Token válido e acesso permitido
+     * Valid token and valid access
      * @var int
      */
     const VALID = 3;
 
     /** 
-     * Construtor da classe
+     * Class constructor
      *
      * @return void
      */
@@ -56,7 +56,7 @@ class Auth extends Service
     }
 
     /**
-     * Faz a autenticação dos usuários e salva o token na memória
+     * Does user authentication and saves the token in memory
      * 
      * @param ParameterSet $params
      * @return array
@@ -65,7 +65,7 @@ class Auth extends Service
     {
         $this->cache = $this->getCache();
         if (! $params->has('login') || ! $params->has('password')) {
-            throw new \Exception("Parâmetros inválidos");
+            throw new \Exception("Invalid parameters");
         }
         $parameters = ParameterFactory::factory(
             array(
@@ -82,7 +82,7 @@ class Auth extends Service
                        ->findOneBy(array('login' => $login));
 
         if (! $client || $client->password != $password || $client->status != 'ACTIVE' ) {
-            throw new \Exception("Login ou senha inválidos");
+            throw new \Exception("Invalid login or password");
         }
         $parameters = ParameterFactory::factory(
             array(
@@ -92,11 +92,11 @@ class Auth extends Service
         );
         $access_token = $this->generateToken($parameters);
         
-        //salva o token na base de dados
+        //Saves the token in the database
         $token = new Token;
         $token->client = $client;
         $token->token = $access_token;
-        $token->ip = '127.0.0.1'; //@todo pegar o ip da requisição?
+        $token->ip = '127.0.0.1'; //@todo get the requisition IP?
         $token->status = 'VALID';
         $this->getEntityManager()->persist($token);
         $this->getEntityManager()->flush();
@@ -105,16 +105,16 @@ class Auth extends Service
         if ($client->permissionCollection) {
             $permissions = $client->permissionCollection->toArray();
         }
-        //salva o token no cache
+        //Save the token in the cache
         $this->cache->addItem($access_token, array('status' => $this::VALID, 'resources' => $permissions));
 
         return array ('access_token' => $access_token);
     }
 
     /**
-     * Verifica se o token está valido e se o client tem acesso ao recurso requisitado
+     * Verifies if the toke is valid and if the client has the requested access
      * 
-     * @todo colocar log em gearman para salvar os registros de acesso
+     * @todo put the log in gearman to save access registry
      * @param ParameterSet $params
      * @return int
      */
@@ -135,7 +135,7 @@ class Auth extends Service
             return $this::DENIED;
         }  
 
-        //verifica se existe um token valido no banco de dados
+        //Verifies if an valid token exists in the database
         $token = $this->getEntityManager()
                       ->getRepository('Api\Model\Token')
                       ->findOneBy(array('token' => $access_token));
@@ -154,7 +154,7 @@ class Auth extends Service
             }
         }
         if ($valid) {
-            //salva no cache
+            //Saves in cache
             $this->cache->addItem($access_token, array('status' => $this::VALID, 'resources' => $permissions));
             return $this::VALID;
         }
@@ -163,7 +163,7 @@ class Auth extends Service
 
 
     /**
-     * Gera a senha do client
+     * Generates the client's password
      * 
      * @param ParameterSet $params
      * @return string
@@ -179,7 +179,7 @@ class Auth extends Service
     }
 
     /**
-     * Gera o token do client
+     * Generates the client's token
      * 
      * @param ParameterSet $params
      * @return string

@@ -9,11 +9,12 @@ use Api\Model\Client;
 use Api\PostProcessor\PostProcessor;
 
 /**
- * Testes relacionados ao pós-processaor
+ * Post-processor related tests
  * 
  * @category Api
  * @package PostProcessor
  * @author  Elton Minetto<eminetto@coderockr.com>
+ * @author  Mateus Guerra<mateus@coderockr.com>
  */
 
 /**
@@ -24,9 +25,8 @@ class PostProcessorTest extends ControllerTestCase
     protected $controllerFQDN = 'Application\Controller\IndexController';
     protected $controllerRoute = 'rpc';
 
-
     /**
-     * Setup dos testes
+     * Tests setup
      * @return void
      */
     public function setup()
@@ -37,10 +37,10 @@ class PostProcessorTest extends ControllerTestCase
     }    
     
     /**
-     * Testa caso o usuário não envie o campo formatter
+     * Tests if the user doesn't send the formatter field
      * @return void
      */
-    public function testProcessSemFormatter()
+    public function testProcessWithoutFormatter()
     {
         $this->routeMatch->setParam('entity', 'log');
         
@@ -55,7 +55,7 @@ class PostProcessorTest extends ControllerTestCase
     }
 
     /**
-     * Testa caso o usuário envie o campo formatter=json
+     * Tests if the user send the formatter field = JSON
      * @return void
      */
     public function testProcessFormatterJson()
@@ -76,13 +76,13 @@ class PostProcessorTest extends ControllerTestCase
     }
 
     /**
-     * Testa caso o usuário envie o campo formatter=xml
+     * Tests if the user send the formatter field = XML
      * @return void
      */
     public function testProcessFormatterXml()
     {
         $this->markTestSkipped(
-          'To be fineshed'
+          'To be finished'
         );
         
         $pp = new PostProcessor;
@@ -99,8 +99,8 @@ class PostProcessorTest extends ControllerTestCase
     }
 
     /**
-     * Cria um novo registro para ser usado nos testes
-     * @return Api\Model\Log    Um novo registro de Log
+     * Creates a new log registry to be used in the tests
+     * @return Api\Model\Log    A new log registry
      */
     private function buildLog($resource = '*')
     {
@@ -120,6 +120,10 @@ class PostProcessorTest extends ControllerTestCase
         return $log;
     }
 
+    /**
+     * Creates a new user to be used in the tests
+     * @return Api\Model\User   A new user registry
+     */
     private function addClient()
     {
         $client = new Client();

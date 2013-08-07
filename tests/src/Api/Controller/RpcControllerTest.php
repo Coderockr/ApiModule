@@ -7,11 +7,12 @@ use Api\Model\Client;
 use Api\Model\Permission;
 
 /**
- * Testes relacionados ao RpcController
+ * RpctController related tests
  * 
  * @category Api
  * @package Controller
  * @author  Elton Minetto<eminetto@coderockr.com>
+ * @author  Mateus Guerra<mateus@coderockr.com>
  */
 
 /**
@@ -22,21 +23,24 @@ class RpcControllerTest extends ControllerTestCase
     protected $controllerFQDN = 'Api\Controller\RpcController';
     protected $controllerRoute = 'rpc';
 
-    //faz o setup dos testes
+    /**
+    * Does the tests setup
+    */  
     public function setup()
     {
         parent::setup();
-        //configura a rota e as opções
+        // rote and options configuration
         $this->routeMatch->setParam('module', 'api');
         $this->routeMatch->setParam('service', 'authenticate');
         $this->routeMatch->setParam('formatter', 'json');
         $this->routeMatch->setParam('action', 'index');
     }    
 
-
+    /**
+     * Tests the execution of a service
+     */
     public function testIndexRpc()
     {
-        //testa a execução de um serviço
         $client = $this->addClient();
         $client->password = '0febfd3464e60216072a60ea095b2ceb6c0d3e87';
         $this->em->persist($client);
@@ -58,8 +62,8 @@ class RpcControllerTest extends ControllerTestCase
     }
     
     /**
-     * Cria um novo registro para ser usado nos testes
-     * @return Api\Model\Client    Um novo registro de Client
+     * Creates a new client to be used in the tests
+     * @return Api\Model\Client    A new client
      */
     private function addClient()
     {
@@ -73,8 +77,8 @@ class RpcControllerTest extends ControllerTestCase
     }
 
     /**
-     * Cria um novo registro para ser usado nos testes
-     * @return Api\Model\Permissao    Um novo registro de Permissao
+     * Creates a new registry to be used in the tests
+     * @return Api\Model\Permission   A new permission registry
      */
     private function addPermission($client, $resource)
     {

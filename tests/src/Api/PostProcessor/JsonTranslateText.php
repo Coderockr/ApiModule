@@ -6,7 +6,7 @@ use Api\PostProcessor\Json;
 use Zend\Http\Response;
 
 /**
- * Testes de tradução
+ * Json translation tests
  * 
  * @category Application
  * @package I18n
