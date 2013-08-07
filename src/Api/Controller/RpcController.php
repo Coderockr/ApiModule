@@ -6,7 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Core\Service\ParameterFactory;
 
 /**
- * Classe responsável pelo acesso RPC dos serviços
+ * Class responsable for Entities RPC access
  * 
  * @category Api
  * @package Controller
@@ -18,8 +18,6 @@ class RpcController extends AbstractActionController
     /**
      * Performs the service
      * 
-     * http://zf2.dev:8080/rpc/v1/album.getAllAlbums.json
-     * http://zf2.dev:8080/rpc/v1/album.getAllAlbums.xml
      * 
      * @return array
      */

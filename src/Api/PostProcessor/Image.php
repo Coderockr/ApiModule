@@ -8,6 +8,7 @@ namespace Api\PostProcessor;
  * @category Api
  * @package PostProcessor
  * @author  Elton Minetto<eminetto@coderockr.com>
+ * @author  Mateus Guerra<mateus@coderockr.com>
  */
 class Image extends AbstractPostProcessor
 {

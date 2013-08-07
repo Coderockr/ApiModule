@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @category Api
  * @package Model
  * @author  Elton Minetto<eminetto@coderockr.com>
+ * @author  Mateus Guerra<mateus@coderockr.com>
  *
  * @ORM\Entity
  * @ORM\Table(name="ApiToken")
