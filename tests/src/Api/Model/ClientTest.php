@@ -11,6 +11,7 @@ use Zend\InputFilter\InputFilterInterface;
  * @category Api
  * @package Model
  * @author  Elton Minetto<eminetto@coderockr.com>
+ * @author  Mateus Guerra<mateus@coderockr.com>
  */
 
 /**
@@ -19,6 +20,9 @@ use Zend\InputFilter\InputFilterInterface;
 class ClientTest extends ModelTestCase
 {
     
+    /**
+     * Tests the existance of filters
+     */
     public function testGetInputFilter()
     {
         //testa a existência dos filtros
@@ -31,10 +35,10 @@ class ClientTest extends ModelTestCase
  
     /**
      * @depends testGetInputFilter
+     * Verifies if the field's filters are created
      */
     public function testInputFilterValid($if)
     {
-        //verifica se os filtros dos campos estão criados
         $this->assertEquals(5, $if->count());
  
         $this->assertTrue($if->has('id'));
@@ -47,18 +51,20 @@ class ClientTest extends ModelTestCase
     
     /**
      * @expectedException Core\Model\EntityException
+     * Tests if the field validation is working
      */
-    public function testInputFilterInvalido()
+    public function testInvalidInputFilter()
     {
-        //testa se a validação do campo está funcionando
         $client = new Client();
-        //login só pode ter 45 caracteres
+        //Login can only have 45 characters
         $client->login = 'Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos';
     }        
 
+    /**
+    * Tests the insertion of a new client
+    */
     public function testSaveClient()
     {
-        //Teste de inserção de um client válido
         $client = new Client();
         $client->name = 'Steve Jobs';
         $client->login = 'steve<br> ';
@@ -69,41 +75,30 @@ class ClientTest extends ModelTestCase
         $this->em->flush();
 
         $this->assertEquals(1, $client->id);
-    }
-
-    public function testClientInsert()
-    {
-        //Teste de inserção de um client válido
-        $client = new Client();
-        $client->name = 'Steve Jobs';
-        $client->login = 'steve<br> ';
-        $client->password = 'teste';
-        $client->status = 'ATIVO';
-
-        $this->em->persist($client);
-        $this->em->flush();
 
         $saved = $this->em->find('Api\Model\Client', 1);
-        $this->assertEquals('steve', $saved->login);
+        $this->assertEquals($client->login, $saved->login);
         $this->assertNotNull($saved->created);
     }
 
     /**
      * @expectedException Doctrine\DBAL\DBALException
+     * Tests the insertion of a invalid client
      */
-    public function testInsertInvalido()
+    public function testInvalidInsert()
     {
-        //Teste de inserção de um client inválido
         $client = new Client();
         $client->name = 'teste';
 
         $this->em->persist($client);
         $this->em->flush();
     }    
-
+    
+    /**
+     * Tests the update of a valid client
+     */
     public function testUpdate()
     {
-        //Teste de atualização de um client válido
         $client = new Client();
         $client->name = 'Steve Jobs';
         $client->login = 'steve<br> ';
@@ -128,9 +123,11 @@ class ClientTest extends ModelTestCase
 
     }
 
+    /**
+     * Tests a client deletion
+     */
     public function testDelete()
     {
-        //Teste de exclusão de um client
         $client = new Client();
         $client->name = 'Steve Jobs';
         $client->login = 'steve<br> ';

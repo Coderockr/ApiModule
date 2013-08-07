@@ -9,10 +9,22 @@ use Zend\InputFilter\InputFilterInterface;
 use Core\Service\ParameterFactory;
 
 /**
+ * Token entity related tests
+ * 
+ * @category Api
+ * @package Model
+ * @author  Elton Minetto<eminetto@coderockr.com>
+ * @author  Mateus Guerra<mateus@coderockr.com>
+ */
+
+/**
  * @group Model
  */
 class TokenTest extends ModelTestCase
 {
+    /**
+     * Tests the existance of filters
+     */
     public function testGetInputFilter()
     {
         $token = new Token();
@@ -38,10 +50,10 @@ class TokenTest extends ModelTestCase
     /**
      * @expectedException Core\Model\EntityException
      */
-    public function testTokenInputFilterInvalido()
+    public function testTokenInvalidInputFilter()
     {
         $token = new Token();
-        //token deve ter entre 1 e 255
+        //Token must have between 1 and 255 characters
         $token->token = '';
         $token->token = 'Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos';
     }
@@ -49,21 +61,21 @@ class TokenTest extends ModelTestCase
     /**
      * @expectedException Core\Model\EntityException
      */
-    public function testIpInputFilterInvalido()
+    public function testIpInvalidInputFilter()
     {
         $token = new Token();
-        //ip deve ter entre 1 e 20
+        //ip must have between 1 and 20 characters
         $token->ip = '';
         $token->ip = 'Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos';
     }
 
     /**
-     * Teste de inserção de uma permissao válida
+     * Tests a valid token insertion
      */
     public function testInsertToken()
     {
         $client = $this->addClient();
-        $access_token = $this->geraToken($client);
+        $access_token = $this->generatesToken($client);
         $token = new Token();
         $token->client = $client;
         $token->token = $access_token;
@@ -72,15 +84,18 @@ class TokenTest extends ModelTestCase
 
         $this->em->persist($token);
         $this->em->flush();
+        
+        $this->assertEquals(2, $token->id);
 
-        $this->assertEquals(2, $token->id);//um token é gerado dentro do serviço de autenticação
+        //A token is generated inside the authentication service
         $this->assertNotNull($token->created);
     }
 
     /**
      * @expectedException Doctrine\DBAL\DBALException
+     * Tests an invalid toke insertion
      */
-    public function testInsertInvalido()
+    public function testInvalidInsert()
     {
         $token = new Token();
         $token->ip = 'teste';
@@ -89,10 +104,13 @@ class TokenTest extends ModelTestCase
         $this->em->flush();
     }    
 
+    /**
+     * Tests the update of a valid token
+     */
     public function testUpdate()
     {
         $client = $this->addClient();
-        $access_token = $this->geraToken($client);
+        $access_token = $this->generatesToken($client);
         $token = new Token();
         $token->client = $client;
         $token->token = $access_token;
@@ -118,10 +136,13 @@ class TokenTest extends ModelTestCase
 
     }
 
+    /**
+     * Tests a token deletion
+     */
     public function testDelete()
     {
         $client = $this->addClient();
-        $access_token = $this->geraToken($client);
+        $access_token = $this->generatesToken($client);
         $token = new Token();
         $token->client = $client;
         $token->token = $access_token;
@@ -140,7 +161,10 @@ class TokenTest extends ModelTestCase
         $this->assertNull($token); 
     }
 
-    private function geraToken($client) 
+    /**
+     * Generates a new access token
+     */
+    private function generatesToken($client) 
     {
         $permission = $this->addPermission($client, '*');
         $this->em->persist($permission);
@@ -159,6 +183,10 @@ class TokenTest extends ModelTestCase
         return $result['access_token'];
     }    
 
+    /**
+     * Creates a new user to be used in the tests
+     * @return Api\Model\User   A new user registry
+     */
     private function addClient()
     {
         $client = new Client();
@@ -173,6 +201,10 @@ class TokenTest extends ModelTestCase
         return $client;
     }
 
+    /**
+     * Creates a new permission to be used in the tests
+     * @return Api\Model\Permission   A new permission registry
+     */
     private function addPermission($client, $resource)
     {
         $permission = new Permission();

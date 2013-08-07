@@ -47,7 +47,7 @@ class PreProcessor
         if ($cached) {
             $token = $e->getRequest()->getHeaders('Authorization');
             if (!$token) {
-                throw new \Exception("Token requirido");       
+                throw new \Exception("Token required");       
             }
             $this->checkAuthorization($auth, $token, $module . '.' . $request);
             return true;
@@ -64,17 +64,17 @@ class PreProcessor
         }
 
         if (! $moduleConfig) {
-            throw new \Exception("Caminho inválido");
+            throw new \Exception("Invalid path");
         }
 
         if (! isset($moduleConfig[$request])) {
-            throw new \Exception("Não permitido");
+            throw new \Exception("Not permitted");
         }
         //acesso requer um token válido e permissões de acesso
         if ($moduleConfig[$request]['authorization'] == 1) {
             $token = $e->getRequest()->getHeaders('Authorization');
             if (!$token) {
-                throw new \Exception("Token requirido");       
+                throw new \Exception("Token required");       
             }
             
             $this->checkAuthorization($auth, $token, $module . '.' . $request);
@@ -96,13 +96,13 @@ class PreProcessor
         );
         switch ($auth->authorize($parameters)) {
             case Auth::INVALID:
-                throw new \Exception("Token inválido");
+                throw new \Exception("Invalid token");
                 break;
             case Auth::EXPIRED:
-                throw new \Exception("Token expirado");
+                throw new \Exception("Expired token");
                 break;
             case Auth::DENIED:
-                throw new \Exception("Acesso negado");
+                throw new \Exception("Denied access");
                 break;
         }
         return true;

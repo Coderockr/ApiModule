@@ -6,7 +6,7 @@ use Zend\Loader\AutoloaderFactory;
 use Zend\Loader\StandardAutoloader;
 
 /**
- * Boostratp do módulo
+ * Module Boostratp
  * 
  * @author  Elton Minetto<eminetto@coderockr.com>
  */
@@ -15,8 +15,8 @@ class Bootstrap
 {
 
     /**
-     * Retorna o nome do módulo
-     * @return string O nome do módulo no SO
+     * Returns the module name
+     * @return string The module name in the SO
      */
     static function getModuleName() 
     {
@@ -24,8 +24,8 @@ class Bootstrap
     }
 
     /**
-     * Retorna o caminho do módulo
-     * @return string O caminho do módulo no SO
+     * Returns the module path
+     * @return string The module path in the SO
      */
     static function getModulePath() 
     {
@@ -33,7 +33,7 @@ class Bootstrap
     }
 
     /**
-     * Faz a configuração dos autoloaders e bootstrap
+     * Does the autoloaders and bootstrap configuration
      * @return void
      */
     static public function go()
