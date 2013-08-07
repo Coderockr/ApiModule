@@ -39,13 +39,6 @@ class RestController extends AbstractRestfulController
 
     /**
      * Returns the entities list
-     *
-     * http://zf2.dev/api/v1/album.album.json
-     * http://zf2.dev/api/v1/album.album.xml
-     * http://zf2.dev/api/v1/album.album.json?fields=title,id
-     * http://zf2.dev/api/v1/album.album.json?fields=title,id&limit=1
-     * http://zf2.dev/api/v1/album.album.json?limit=10&offset=5
-     * http://zf2.dev/api/v1/album.album.json?nome=Elton&idade=33&fields=nome,cidade
      * 
      * @return array
      */
@@ -98,38 +91,6 @@ class RestController extends AbstractRestfulController
             $response->setStatusCode(404);
             return $response;
         }
-
-        // $lang = $this->getRequest()->getHeaders('lang');
-       
-        // if ($lang) {
-        //     if (!isset($_SESSION)) {
-        //         session_start();
-        //     }
-        //     $lang = $lang->getFieldValue();
-
-        //     switch ($lang) {
-        //         case 'pt-BR':
-        //         case 'pt-PT':
-        //         case 'pt':
-        //             $lang = 'pt_BR';  
-        //             break;
-        //         case 'en-US':
-        //         case 'en':
-        //         case 'en-GB':
-        //             $lang = 'en_US';  
-        //             break;
-        //         case 'es-ES':
-        //         case 'es':
-        //             $lang = 'es_ES';  
-        //             break;
-        //         default:
-        //             $lang = 'en_US';  
-        //             break;
-        //     }
-
-        //     $_SESSION['lang'] = $lang;
-        
-        // }
 
         return $result;
     }
