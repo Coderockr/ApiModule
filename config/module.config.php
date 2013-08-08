@@ -60,6 +60,27 @@ return array(
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         )
     ),
+     'service_manager' => array(
+        'factories' => array(
+            'Session' => function($sm) {
+                return new \Zend\Session\Container('Weg');
+            },
+            'Cache' => function($sm) {
+                $config = $sm->get('Configuration');
+                $cache = \Zend\Cache\StorageFactory::factory(
+                    array(
+                        'adapter' => $config['cache']['adapter'],
+                        'plugins' => array(
+                            'exception_handler' => array('throw_exceptions' => false),
+                            'Serializer'
+                        ),
+                    )
+                );
+
+                return $cache;
+            }
+        ),
+    )
 //    'db' => array(
 //        'driver' => 'Pdo',
 //        'dsn' => 'oci:dbname=apimobile;charset=WE8ISO8859P1',
