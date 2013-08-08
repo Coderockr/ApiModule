@@ -1,5 +1,5 @@
 <?php
-//serviços que estão disponíveis via RPC
+//RPC available services
 return array(
     'authenticate' => array(
         'class' => 'Api\Service\Auth',

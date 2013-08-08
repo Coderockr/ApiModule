@@ -1,6 +1,6 @@
 <?php
 return array(
-    'di' => array( //cria alias para os pós-processadores de json, xml e image
+    'di' => array( //creates an alias for json, xml and image post-processors
         'instance' => array(
             'alias' => array(
                 'json-pp'  => 'Api\PostProcessor\Json',
@@ -9,13 +9,13 @@ return array(
             )
         )
     ),
-    'controllers' => array( //lista os dois controllers do modulo
+    'controllers' => array( //lists both controllers of the module
         'invokables' => array(
             'rest' => 'Api\Controller\RestController',
             'rpc' => 'Api\Controller\RpcController',
         )
     ),
-    'router' => array( //rotas dos controllers
+    'router' => array( //controllers routes
         'routes' => array(
             'restful' => array(
                 'type'    => 'Segment',
@@ -49,7 +49,7 @@ return array(
             ),
         ),
     ),
-    // 'db' => array( //database espefício do modulo
+    // 'db' => array( //Module database
     //     'driver' => 'Pdo',
     //     'dsn'    => 'pgsql:host=localhost;port=5432;dbname=api;user=postgres;password=coderockr',
     // ),
@@ -62,9 +62,9 @@ return array(
     ),
 //    'db' => array(
 //        'driver' => 'Pdo',
-//        'dsn' => 'oci:dbname=desenvunoline.unochapeco.edu.br/desenv.unochapeco.edu.br;charset=WE8ISO8859P1',
-//        'username' => 'acad',
-//        'password' => 'cataratas',
+//        'dsn' => 'oci:dbname=apimobile;charset=WE8ISO8859P1',
+//        'username' => '',
+//        'password' => '',
 //        'driver_options' => array(
 //            PDO::ATTR_CASE => PDO::CASE_LOWER,
 //            PDO::ATTR_PERSISTENT => true,
