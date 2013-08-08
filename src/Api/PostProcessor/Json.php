@@ -4,7 +4,6 @@ namespace Api\PostProcessor;
 
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializationContext;
-use Zend\I18n\Translator\Translator;
 
 /**
  * Concrete class that returns JSON
@@ -16,8 +15,6 @@ use Zend\I18n\Translator\Translator;
  */
 class Json extends AbstractPostProcessor
 {   
-
-    protected $translator;
 
     /**
      * Returns the content and headers in JSON format
