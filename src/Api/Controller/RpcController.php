@@ -3,7 +3,7 @@
 namespace Api\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Core\Service\ParameterFactory;
+use Api\Service\ParameterFactory;
 
 /**
  * Class responsable for Entities RPC access

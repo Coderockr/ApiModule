@@ -4,7 +4,7 @@ namespace Api\Controller;
 
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\Mvc\MvcEvent;
-use Core\Model\EntityException;
+use Api\Model\EntityException;
 
 /**
  * Class responsable for Entities REST access

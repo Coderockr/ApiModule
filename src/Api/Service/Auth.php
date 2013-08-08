@@ -1,13 +1,13 @@
 <?php
 namespace Api\Service;
 
-use Core\Service\Service;
+use Api\Service\Service;
 use Zend\Authentication\Adapter\DbTable as AuthAdapter;
 use Api\Model\Token;
 use Zend\Db\Sql\Select;
 use Zend\Db\Adapter\Adapter;
-use Core\Service\ParameterSet;
-use Core\Service\ParameterFactory;
+use Api\Service\ParameterSet;
+use Api\Service\ParameterFactory;
 
 /**
  * Service responsable for authentication, 

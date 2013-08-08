@@ -4,7 +4,7 @@ namespace Api\PreProcessor;
 
 use Zend\Mvc\MvcEvent;
 use Api\Service\Auth;
-use Core\Service\ParameterFactory;
+use Api\Service\ParameterFactory;
 
 /**
  * Class responsable for pre-processing API requisitions

@@ -6,7 +6,7 @@ use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
-use Core\Model\TimeStampedEntity;
+use Api\Model\TimeStampedEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
