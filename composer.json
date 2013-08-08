@@ -12,6 +12,7 @@
     "license": "BSD-3-Clause",
     "require": {
         "php": ">=5.3.3",
-        "jms/serializer": "*"
+        "jms/serializer": "*",
+        "symfony/serializer": "2.3.*@dev"
     }
 }
