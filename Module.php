@@ -8,14 +8,14 @@ use Api\PreProcessor\PreProcessor;
 use Api\PostProcessor\PostProcessor;
 
 /**
- * Classe de configuração do módulo
+ * Module configuration class
  * 
  * @category Api
  */
 class Module
 {
     /**
-     * Executada no bootstrap do módulo
+     * Executed on module bootsrap
      * 
      * @param MvcEvent $e
      */
@@ -26,18 +26,18 @@ class Module
         /** @var \Zend\EventManager\SharedEventManager $sharedEvents */
         $sharedEvents = $moduleManager->getEventManager()->getSharedManager();
 
-        //adiciona eventos ao módulo
-        //pré e pós-processadores do controller Rest
+        //Adds module events
+        //Controller REST pre and post-processors 
         $sharedEvents->attach('Api\Controller\RestController', MvcEvent::EVENT_DISPATCH, array(new PostProcessor, 'process'), -100);
         $sharedEvents->attach('Api\Controller\RestController', MvcEvent::EVENT_DISPATCH, array(new PreProcessor, 'process'), 100);
         
-        //pré e pós-processadores do controller Rpc
+        //Controller RPC pre and post-processors 
         $sharedEvents->attach('Api\Controller\RpcController', MvcEvent::EVENT_DISPATCH, array(new PostProcessor, 'process'), -100);
         $sharedEvents->attach('Api\Controller\RpcController', MvcEvent::EVENT_DISPATCH, array(new PreProcessor, 'process'), 100);
     }
 
     /**
-     * Configuração do loader
+     * Loader configuration
      *  
      * @return array
      */
@@ -56,7 +56,7 @@ class Module
     }
 
     /**
-     * Carrega o arquivo de configuração
+     * Loads the configuration file
      * 
      * @return array
      */
@@ -66,7 +66,7 @@ class Module
     }
 
     /**
-     * Retorna a configuração do service manager do módulo
+     * Returns the module service manager configuration
      * @return array
      */
     public function getServiceConfig()
@@ -83,7 +83,7 @@ class Module
 
 
     /**
-     * Faz o processamento dos erros da aplicação
+     * Process the application errors
      * @param MvcEvent $e
      * @return null|\Zend\Http\PhpEnvironment\Response
      */
