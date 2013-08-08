@@ -1,5 +1,5 @@
 <?php
-//entidades que estão disponíveis via REST
+//REST available services
 return array(
     'log' => array(
         'class' => 'Api\Model\Log',
