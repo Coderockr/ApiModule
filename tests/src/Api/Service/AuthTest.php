@@ -1,11 +1,11 @@
 <?php
 namespace Api\Service;
 
-use Core\Test\ServiceTestCase;
+use Api\Test\ServiceTestCase;
 use Api\Model\Client;
 use Api\Model\Permission;
 use Api\Service\Auth;
-use Core\Service\ParameterFactory;
+use Api\Service\ParameterFactory;
 
 /**
  * Auth related tests

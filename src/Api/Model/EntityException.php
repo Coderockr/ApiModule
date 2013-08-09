@@ -1,9 +1,9 @@
 <?php
 
 /**
- * @package    Core\Model
+ * @package    Api\Model
  * @author     Marcos Garcia<garcia@coderockr.com>
  */
-namespace Core\Model;
+namespace Api\Model;
 
 class EntityException extends \Exception {}

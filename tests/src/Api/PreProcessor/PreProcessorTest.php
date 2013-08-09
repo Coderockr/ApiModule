@@ -2,7 +2,7 @@
 
 namespace Api\PreProcessor;
 
-use Core\Test\ControllerTestCase;
+use Api\Test\ControllerTestCase;
 use Api\Controller\RestController;
 use Api\Model\Log;
 use Api\Model\Client;
@@ -10,7 +10,7 @@ use Api\Model\Permission;
 use Api\Model\Token;
 use Api\PreProcessor\PreProcessor;
 use DateTime;
-use Core\Service\ParameterFactory;
+use Api\Service\ParameterFactory;
 
 /**
  * Pre-processor related tests

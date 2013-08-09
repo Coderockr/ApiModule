@@ -1,7 +1,7 @@
 <?php
 namespace Api\Model;
 
-use Core\Test\ModelTestCase;
+use Api\Test\ModelTestCase;
 use Api\Model\Client;
 use Zend\InputFilter\InputFilterInterface;
 
@@ -50,7 +50,7 @@ class ClientTest extends ModelTestCase
     }
     
     /**
-     * @expectedException Core\Model\EntityException
+     * @expectedException Api\Model\EntityException
      * Tests if the field validation is working
      */
     public function testInvalidInputFilter()

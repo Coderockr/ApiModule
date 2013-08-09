@@ -1,12 +1,12 @@
 <?php
-namespace Core\Service;
+namespace Api\Service;
 
 use Exception;
 use Countable;
 
 /**
  * Classe que representa um conjunto de parâmetros
- * @category   Core
+ * @category   Api
  * @package    Service
  * @author     Elton Minetto <eminetto@coderockr.com>
  */

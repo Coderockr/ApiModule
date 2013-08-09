@@ -1,12 +1,12 @@
 <?php
 namespace Api\Model;
 
-use Core\Test\ModelTestCase;
+use Api\Test\ModelTestCase;
 use Api\Model\Client;
 use Api\Model\Permissao;
 use Api\Model\Token;
 use Zend\InputFilter\InputFilterInterface;
-use Core\Service\ParameterFactory;
+use Api\Service\ParameterFactory;
 
 /**
  * Token entity related tests
@@ -48,7 +48,7 @@ class TokenTest extends ModelTestCase
     }
     
     /**
-     * @expectedException Core\Model\EntityException
+     * @expectedException Api\Model\EntityException
      */
     public function testTokenInvalidInputFilter()
     {
@@ -59,7 +59,7 @@ class TokenTest extends ModelTestCase
     }
 
     /**
-     * @expectedException Core\Model\EntityException
+     * @expectedException Api\Model\EntityException
      */
     public function testIpInvalidInputFilter()
     {

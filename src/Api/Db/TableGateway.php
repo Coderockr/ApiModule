@@ -1,13 +1,13 @@
 <?php
 
-namespace Core\Db;
+namespace Api\Db;
 
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Sql;
-use Core\Model\EntityException;
+use Api\Model\EntityException;
 use Zend\Db\TableGateway\Feature\SequenceFeature;
 use Zend\Db\TableGateway\Feature\FeatureSet;
 use Zend\Db\Sql\Expression;
@@ -15,7 +15,7 @@ use Zend\Db\Sql\Expression;
 /**
  * TableGateway é responsável pelas manipulações das entidades
  * 
- * @category Core
+ * @category Api
  * @package Controller
  * @author  Elton Minetto<eminetto@coderockr.com>
  */
@@ -39,7 +39,7 @@ class TableGateway extends AbstractTableGateway
      * Construtor. A dependência é injetada automaticamente
      * @param Adapter $adapter Conexão com o banco de dados
      * @param  string $tableName Nome da entidade/tabela
-     * @param  Core\Entity $object    Objeto a ser manipulado
+     * @param  Api\Entity $object    Objeto a ser manipulado
      */
     public function __construct(Adapter $adapter, $table, $objectPrototype)
     {
@@ -139,7 +139,7 @@ class TableGateway extends AbstractTableGateway
     /**
      * Recupera uma entidade pela sua chave primária
      * @param  int $id Código da entidade
-     * @return Core\Entity    Uma entidade
+     * @return Api\Entity    Uma entidade
      */
     public function get($id)
     {
@@ -174,8 +174,8 @@ class TableGateway extends AbstractTableGateway
 
     /**
      * Faz a persistência da entidade na tabela
-     * @param  Core\Entity $object A entidade a ser salva
-     * @return Core\Entity         A entidade salva
+     * @param  Api\Entity $object A entidade a ser salva
+     * @return Api\Entity         A entidade salva
      */
     public function save($object)
     {
@@ -191,8 +191,8 @@ class TableGateway extends AbstractTableGateway
 
     /**
      * Faz a persistência da entidade na tabela, para entidades com chave primária simples
-     * @param  Core\Entity $object A entidade a ser salva
-     * @return Core\Entity         A entidade salva
+     * @param  Api\Entity $object A entidade a ser salva
+     * @return Api\Entity         A entidade salva
      */
     private function saveSimpleKey($object)
     {
@@ -218,8 +218,8 @@ class TableGateway extends AbstractTableGateway
 
     /**
      * Faz a persistência da entidade na tabela, para entidades com chave primária composta
-     * @param  Core\Entity $object A entidade a ser salva
-     * @return Core\Entity         A entidade salva
+     * @param  Api\Entity $object A entidade a ser salva
+     * @return Api\Entity         A entidade salva
      */
     private function saveComplexKey($object)
     {
@@ -301,7 +301,7 @@ class TableGateway extends AbstractTableGateway
     protected function formatDateFromDatabase($data)
     {
         $platformName = $this->getAdapter()->getPlatform()->getName();        
-        $filterDate = new \Core\Filter\Date();
+        $filterDate = new \Api\Filter\Date();
         foreach ($data as $key => $value) {
             if ($value instanceof \DateTime) {
                 $data[$key] = $filterDate->formatDateFromDatabase($platformName, $value);     

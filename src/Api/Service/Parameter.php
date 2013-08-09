@@ -1,9 +1,9 @@
 <?php
-namespace Core\Service;
+namespace Api\Service;
 
 /**
  * Classe que representa um parâmetro de um service
- * @category   Core
+ * @category   Api
  * @package    Service
  * @author     Elton Minetto <eminetto@coderockr.com>
  */

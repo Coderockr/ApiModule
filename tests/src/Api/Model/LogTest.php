@@ -1,7 +1,7 @@
 <?php
 namespace Api\Model;
 
-use Core\Test\ModelTestCase;
+use Api\Test\ModelTestCase;
 use Api\Model\Log;
 use Zend\InputFilter\InputFilterInterface;
 
@@ -43,7 +43,7 @@ class LogTest extends ModelTestCase
     }
     
     /**
-     * @expectedException Core\Model\EntityException
+     * @expectedException Api\Model\EntityException
      */
     public function testInvalidInputFilter()
     {

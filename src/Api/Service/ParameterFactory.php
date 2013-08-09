@@ -1,11 +1,11 @@
 <?php
-namespace Core\Service;
+namespace Api\Service;
 
 use Exception;
 
 /**
  * Classe que fabrica um conjunto de parâmetros 
- * @category   Core
+ * @category   Api
  * @package    Service
  * @author     Elton Minetto <eminetto@coderockr.com>
  */

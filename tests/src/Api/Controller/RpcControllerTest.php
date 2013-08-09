@@ -1,7 +1,7 @@
 <?php
 namespace Api\Controller;
 
-use Core\Test\ControllerTestCase;
+use Api\Test\ControllerTestCase;
 use Api\Controller\RestController;
 use Api\Model\Client;
 use Api\Model\Permission;

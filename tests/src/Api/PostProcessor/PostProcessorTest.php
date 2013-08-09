@@ -1,7 +1,7 @@
 <?php
 namespace Api\PostProcessor;
 
-use Core\Test\ControllerTestCase;
+use Api\Test\ControllerTestCase;
 use Api\Controller\RestController;
 use Api\Model\Log;
 use Api\Model\Token;

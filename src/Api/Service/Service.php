@@ -1,5 +1,5 @@
 <?php
-namespace Core\Service;
+namespace Api\Service;
 
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
@@ -86,7 +86,7 @@ abstract class Service implements ServiceManagerAwareInterface
      */
     protected function getClient()
     {
-        return $this->getServiceManager()->get('Core\Service\Client');
+        return $this->getServiceManager()->get('Api\Service\Client');
     }
 
     /**
