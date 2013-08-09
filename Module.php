@@ -74,7 +74,7 @@ class Module
         return array(
             'factories' => array(
                 'Api\Service\Auth' => function($sm) {
-                    $dbAdapter = $sm->get('DbAdapter');
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     return new Service\Auth($dbAdapter);
                 },
             ),
