@@ -11,11 +11,12 @@
     ],
     "homepage": "http://coderockr.com/",
     "license": "BSD-3-Clause",
+    "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
         "jms/serializer": "*",
         "symfony/serializer": "2.3.*@dev",
         "doctrine/dbal": "*",
-        "doctrine/orm": "*"
+        "doctrine/orm": "2.4.*"
     }
 }
