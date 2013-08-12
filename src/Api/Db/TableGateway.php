@@ -1,13 +1,13 @@
 <?php
 
-namespace Core\Db;
+namespace Api\Db;
 
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Sql;
-use Core\Model\EntityException;
+use Api\Model\EntityException;
 use Zend\Db\TableGateway\Feature\SequenceFeature;
 use Zend\Db\TableGateway\Feature\FeatureSet;
 use Zend\Db\Sql\Expression;

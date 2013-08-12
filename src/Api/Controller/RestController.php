@@ -169,7 +169,7 @@ class RestController extends AbstractRestfulController
     /**
      * Returns an Entity instance
      *
-     * @return Core\Model\Entity
+     * @return Api\Model\Entity
      */
     protected function getEntityName()
     {
@@ -185,7 +185,7 @@ class RestController extends AbstractRestfulController
     /**
      * Returns an Entity table
      *
-     * @return Core\Mode\Entity
+     * @return Api\Model\Entity
      */
     protected function getTableObject()
     {
