@@ -1,18 +1,21 @@
 {
     "name": "coderockr/apimodule",
-    "description": "Mobile Api for Zend Framework 2",
+    "description": "Api Module for Zend Framework 2 and Doctrine 2",
     "type": "library",
     "keywords": [
         "framework",
         "zf2",
-	"api",
-	"mobile"
+        "doctrine",
+	    "api",
+	    "module"
     ],
     "homepage": "http://coderockr.com/",
     "license": "BSD-3-Clause",
     "require": {
         "php": ">=5.3.3",
         "jms/serializer": "*",
-        "symfony/serializer": "2.3.*@dev"
+        "symfony/serializer": "2.3.*@dev",
+        "doctrine/dbal": "*",
+        "doctrine/orm": "2.4.*"
     }
 }
