@@ -185,7 +185,7 @@ class RestController extends AbstractRestfulController
     /**
      * Returns an Entity table
      *
-     * @return Api\Mode\Entity
+     * @return Api\Model\Entity
      */
     protected function getTableObject()
     {

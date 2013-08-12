@@ -15,6 +15,9 @@ return array(
             'rpc' => 'Api\Controller\RpcController',
         )
     ),
+    'cache' => array(
+        'adapter' => 'memory'
+    ),
     'router' => array( //controllers routes
         'routes' => array(
             'restful' => array(

@@ -56,10 +56,10 @@ class PreProcessor
         $moduleConfig = null;
         switch ($routeName) {
             case 'restful':
-                $moduleConfig = include __DIR__ . '/../../../../' . ucfirst($module) . '/config/entities.config.php';
+                $moduleConfig = include $_SERVER['DOCUMENT_ROOT'] . '/../module/' . ucfirst($module) . '/config/entities.config.php';
                 break;
             case 'rpc':
-                $moduleConfig = include __DIR__ . '/../../../../' . ucfirst($module) . '/config/services.config.php';
+                $moduleConfig = include $_SERVER['DOCUMENT_ROOT'] . '/../module/' . ucfirst($module) . '/config/services.config.php';
                 break;
         }
 
