@@ -218,10 +218,7 @@ class RestController extends AbstractRestfulController
                 }
             }
         }
-        $moduleConfig = include __DIR__ .
-                        '/../../../../' . 
-                        ucfirst($module). 
-                        '/config/entities.config.php';
+        $moduleConfig = $_SERVER['DOCUMENT_ROOT'] . '/../module/' . ucfirst($module) . '/config/entities.config.php';
         
         return $moduleConfig[$entity]['class'];
     }
