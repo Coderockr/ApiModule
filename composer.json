@@ -2,6 +2,19 @@
     "name": "coderockr/apimodule",
     "description": "Api Module for Zend Framework 2 and Doctrine 2",
     "type": "library",
+    "authors": [
+        {
+            "name": "Mateus Guerra",
+            "email": "mateus@coderockr.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Elton Minetto",
+            "email": "eminetto@coderockr.com",
+            "homepage": "http://eltonminetto.net/",
+            "role": "Developer"
+        }
+    ],
     "keywords": [
         "framework",
         "zf2",
