@@ -65,23 +65,12 @@ return array(
     ),
      'service_manager' => array(
         'factories' => array(
-            'Session' => function($sm) {
-                return new \Zend\Session\Container('Weg');
-            },
-            'Cache' => function($sm) {
+            'DbAdapter' => 'Api\Db\AdapterServiceFactory', 
+            'Api\Service\Client' => function($sm) { 
                 $config = $sm->get('Configuration');
-                $cache = \Zend\Cache\StorageFactory::factory(
-                    array(
-                        'adapter' => $config['cache']['adapter'],
-                        'plugins' => array(
-                            'exception_handler' => array('throw_exceptions' => false),
-                            'Serializer'
-                        ),
-                    )
-                );
-
-                return $cache;
-            }
+                $apiConfig = $config['api'];
+                return new Service\Client($apiConfig['apiKey'], $apiConfig['apiUri'], $apiConfig['rpcUri']);
+            },
         ),
     )
 //    'db' => array(
