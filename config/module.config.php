@@ -65,6 +65,20 @@ return array(
     ),
      'service_manager' => array(
         'factories' => array(
+            'Cache' => function($sm) {
+                $config = $sm->get('Configuration');
+                $cache = \Zend\Cache\StorageFactory::factory(
+                    array(
+                        'adapter' => $config['cache']['adapter'],
+                        'plugins' => array(
+                            'exception_handler' => array('throw_exceptions' => false),
+                            'Serializer'
+                        ),
+                    )
+                );
+
+                return $cache;
+            },
             'DbAdapter' => 'Api\Db\AdapterServiceFactory', 
             'Api\Service\Client' => function($sm) { 
                 $config = $sm->get('Configuration');
