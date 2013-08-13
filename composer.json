@@ -15,8 +15,9 @@
     "require": {
         "php": ">=5.3.3",
         "jms/serializer": "*",
-        "symfony/serializer": "2.3.*@dev",
-        "doctrine/dbal": "*",
+        "symfony/serializer": "2.3.*@dev",       
+        "doctrine/common": "2.4.*@dev",
+        "doctrine/dbal": "2.4.*@dev",
         "doctrine/orm": "2.4.*@dev"
     }
 }
