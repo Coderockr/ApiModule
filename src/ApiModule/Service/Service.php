@@ -70,7 +70,7 @@ abstract class Service implements ServiceManagerAwareInterface
      */
     protected function getClient()
     {
-        return $this->getServiceManager()->get('Api\Service\Client');
+        return $this->getServiceManager()->get('ApiModule\Service\Client');
     }
 
     /**

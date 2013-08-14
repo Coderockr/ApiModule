@@ -1,5 +1,5 @@
 {
-    "name": "coderockr/apimodule",
+    "name": "coderockr/api-module",
     "description": "Api Module for Zend Framework 2 and Doctrine 2",
     "type": "library",
     "authors": [

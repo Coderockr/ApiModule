@@ -1,14 +1,14 @@
 <?php
 
-namespace Api\Controller;
+namespace ApiModule\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Api\Service\ParameterFactory;
+use ApiModule\Service\ParameterFactory;
 
 /**
  * Class responsable for Entities RPC access
  * 
- * @category Api
+ * @category ApiModule
  * @package Controller
  * @author  Elton Minetto<eminetto@coderockr.com>
  */

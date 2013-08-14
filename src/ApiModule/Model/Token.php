@@ -1,25 +1,25 @@
 <?php
-namespace Api\Model;
+namespace ApiModule\Model;
 
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
-use Api\Model\TimeStampedEntity;
+use ApiModule\Model\TimeStampedEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Permission entity
- *
- * @category Api
+ * Token entity
+ * 
+ * @category ApiModule
  * @package Model
  * @author  Elton Minetto<eminetto@coderockr.com>
  * @author  Mateus Guerra<mateus@coderockr.com>
  *
  * @ORM\Entity
- * @ORM\Table(name="ApiPermission")
+ * @ORM\Table(name="ApiToken")
  */
-class Permission extends TimeStampedEntity
+class Token extends TimeStampedEntity
 {
     /**
      * @ORM\Id
@@ -31,14 +31,31 @@ class Permission extends TimeStampedEntity
     /**
      * @ORM\Column(type="string")
      */
-    protected $resource;
+    protected $token;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Client", inversedBy="permissionCollection", cascade={"persist", "merge", "refresh"})
+     * @ORM\Column(type="string")
+     */
+    protected $ip;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $status;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Client", inversedBy="tokenCollection", cascade={"persist", "merge", "refresh"})
      * 
      * @var Client
      */
     protected $client; 
+
+    /**
+     * @ORM\OneToMany(targetEntity="Log", mappedBy="token", cascade={"all"}, orphanRemoval=true, fetch="EXTRA_LAZY")
+     * 
+     * @var Doctrine\Common\Collections\Collection
+     */
+    protected $logCollection;
 
     /**
      * Configuration of the Entity's filters
@@ -60,7 +77,7 @@ class Permission extends TimeStampedEntity
             )));
 
             $inputFilter->add($factory->createInput(array(
-                'name'     => 'resource',
+                'name'     => 'token',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
@@ -72,9 +89,37 @@ class Permission extends TimeStampedEntity
                         'options' => array(
                             'encoding' => 'UTF-8',
                             'min'      => 1,
-                            'max'      => 100,
+                            'max'      => 255,
                         ),
                     ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'ip',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 20,
+                        ),
+                    ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'status',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
                 ),
             )));
             

@@ -3,16 +3,16 @@ return array(
     'di' => array( //creates an alias for json, xml and image post-processors
         'instance' => array(
             'alias' => array(
-                'json-pp'  => 'Api\PostProcessor\Json',
-                'xml-pp'  => 'Api\PostProcessor\Xml',
-                'image-pp' => 'Api\PostProcessor\Image',
+                'json-pp'  => 'ApiModule\PostProcessor\Json',
+                'xml-pp'  => 'ApiModule\PostProcessor\Xml',
+                'image-pp' => 'ApiModule\PostProcessor\Image',
             )
         )
     ),
     'controllers' => array( //lists both controllers of the module
         'invokables' => array(
-            'rest' => 'Api\Controller\RestController',
-            'rpc' => 'Api\Controller\RpcController',
+            'rest' => 'ApiModule\Controller\RestController',
+            'rpc' => 'ApiModule\Controller\RpcController',
         )
     ),
     'cache' => array(
@@ -79,8 +79,8 @@ return array(
 
                 return $cache;
             },
-            'DbAdapter' => 'Api\Db\AdapterServiceFactory', 
-            'Api\Service\Client' => function($sm) { 
+            'DbAdapter' => 'ApiModule\Db\AdapterServiceFactory', 
+            'ApiModule\Service\Client' => function($sm) { 
                 $config = $sm->get('Configuration');
                 $apiConfig = $config['api'];
                 return new Service\Client($apiConfig['apiKey'], $apiConfig['apiUri'], $apiConfig['rpcUri']);

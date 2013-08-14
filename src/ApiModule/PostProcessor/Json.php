@@ -1,6 +1,6 @@
 <?php
 
-namespace Api\PostProcessor;
+namespace ApiModule\PostProcessor;
 
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializationContext;
@@ -8,7 +8,7 @@ use JMS\Serializer\SerializationContext;
 /**
  * Concrete class that returns JSON
  * 
- * @category Api
+ * @category ApiModule
  * @package PostProcessor
  * @author  Elton Minetto<eminetto@coderockr.com>
  * @author  Mateus Guerra<mateus@coderockr.com>

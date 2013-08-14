@@ -1,18 +1,18 @@
 <?php
 
-namespace Api\Model;
+namespace ApiModule\Model;
 
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
-use Api\Model\TimeStampedEntity;
+use ApiModule\Model\TimeStampedEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Client Entity
  * 
- * @category Api
+ * @category ApiModule
  * @package Model
  * @author  Elton Minetto<eminetto@coderockr.com>
  * @author  Mateus Guerra<mateus@coderockr.com>

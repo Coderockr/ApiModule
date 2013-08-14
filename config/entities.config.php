@@ -2,7 +2,7 @@
 //REST available services
 return array(
     'log' => array(
-        'class' => 'Api\Model\Log',
+        'class' => 'ApiModule\Model\Log',
         'authorization' => 1
     ),
 );

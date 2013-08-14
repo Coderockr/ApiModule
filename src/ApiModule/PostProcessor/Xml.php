@@ -1,6 +1,6 @@
 <?php
 
-namespace Api\PostProcessor;
+namespace ApiModule\PostProcessor;
 
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
@@ -9,7 +9,7 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
 /**
  * Concrete class that returns JSON
  * 
- * @category Api
+ * @category ApiModule
  * @package PostProcessor
  * @author  Elton Minetto<eminetto@coderockr.com>
  */

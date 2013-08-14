@@ -1,13 +1,13 @@
 <?php
-namespace Api\PostProcessor;
+namespace ApiModule\PostProcessor;
 
 use Zend\Mvc\MvcEvent;
-use Api\Service\Auth;
+use ApiModule\Service\Auth;
 
 /**
- * Class responsable for post-processing API requisitions
+ * Class responsable for post-processing ApiModule requisitions
  * 
- * @category Api
+ * @category ApiModule
  * @package PostProcessor
  * @author  Elton Minetto<eminetto@coderockr.com>
  */

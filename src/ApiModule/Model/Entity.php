@@ -1,10 +1,10 @@
 <?php
 /**
  * Entity class
- * @package    Api\Model
+ * @package    ApiModule\Model
  * @author     Elton Minetto<eminetto@coderockr.com>
  */
-namespace Api\Model;
+namespace ApiModule\Model;
 
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
