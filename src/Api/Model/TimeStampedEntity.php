@@ -1,5 +1,5 @@
 <?php
-namespace ApiModule\Model;
+namespace Api\Model;
 
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
@@ -9,7 +9,7 @@ use Zend\InputFilter\Exception\InvalidArgumentException;
 
 /**
  * Entities with creation timestamp 
- * @package    ApiModule\Model
+ * @package    Api\Model
  * @author     Elton Minetto<eminetto@coderockr.com>
  */
 class TimeStampedEntity extends Entity

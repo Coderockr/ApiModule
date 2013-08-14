@@ -1,25 +1,25 @@
 <?php
-namespace ApiModule\Model;
+namespace Api\Model;
 
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
-use ApiModule\Model\TimeStampedEntity;
+use Api\Model\TimeStampedEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Token entity
- * 
- * @category ApiModule
+ * Permission entity
+ *
+ * @category Api
  * @package Model
  * @author  Elton Minetto<eminetto@coderockr.com>
  * @author  Mateus Guerra<mateus@coderockr.com>
  *
  * @ORM\Entity
- * @ORM\Table(name="ApiToken")
+ * @ORM\Table(name="ApiPermission")
  */
-class Token extends TimeStampedEntity
+class Permission extends TimeStampedEntity
 {
     /**
      * @ORM\Id
@@ -31,31 +31,14 @@ class Token extends TimeStampedEntity
     /**
      * @ORM\Column(type="string")
      */
-    protected $token;
+    protected $resource;
 
     /**
-     * @ORM\Column(type="string")
-     */
-    protected $ip;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $status;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Client", inversedBy="tokenCollection", cascade={"persist", "merge", "refresh"})
+     * @ORM\ManyToOne(targetEntity="Client", inversedBy="permissionCollection", cascade={"persist", "merge", "refresh"})
      * 
      * @var Client
      */
     protected $client; 
-
-    /**
-     * @ORM\OneToMany(targetEntity="Log", mappedBy="token", cascade={"all"}, orphanRemoval=true, fetch="EXTRA_LAZY")
-     * 
-     * @var Doctrine\Common\Collections\Collection
-     */
-    protected $logCollection;
 
     /**
      * Configuration of the Entity's filters
@@ -77,7 +60,7 @@ class Token extends TimeStampedEntity
             )));
 
             $inputFilter->add($factory->createInput(array(
-                'name'     => 'token',
+                'name'     => 'resource',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
@@ -89,37 +72,9 @@ class Token extends TimeStampedEntity
                         'options' => array(
                             'encoding' => 'UTF-8',
                             'min'      => 1,
-                            'max'      => 255,
+                            'max'      => 100,
                         ),
                     ),
-                ),
-            )));
-
-            $inputFilter->add($factory->createInput(array(
-                'name'     => 'ip',
-                'required' => false,
-                'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 20,
-                        ),
-                    ),
-                ),
-            )));
-
-            $inputFilter->add($factory->createInput(array(
-                'name'     => 'status',
-                'required' => true,
-                'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
                 ),
             )));
             
