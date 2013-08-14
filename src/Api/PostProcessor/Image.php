@@ -1,11 +1,11 @@
 <?php
 
-namespace ApiModule\PostProcessor;
+namespace Api\PostProcessor;
 
 /**
  * Concrete class that returns an image
  * 
- * @category ApiModule
+ * @category Api
  * @package PostProcessor
  * @author  Elton Minetto<eminetto@coderockr.com>
  * @author  Mateus Guerra<mateus@coderockr.com>

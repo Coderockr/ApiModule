@@ -1,20 +1,20 @@
 <?php
-namespace ApiModule\Service;
+namespace Api\Service;
 
-use ApiModule\Service\Service;
+use Api\Service\Service;
 use Zend\Authentication\Adapter\DbTable as AuthAdapter;
-use ApiModule\Model\Token;
+use Api\Model\Token;
 use Zend\Db\Sql\Select;
 use Zend\Db\Adapter\Adapter;
-use ApiModule\Service\ParameterSet;
-use ApiModule\Service\ParameterFactory;
+use Api\Service\ParameterSet;
+use Api\Service\ParameterFactory;
 
 /**
  * Service responsable for authentication, 
- * authorization and ApiModule log use. 
+ * authorization and Api log use. 
  * (Authentication, Authorization and Accounting)
  * 
- * @category ApiModule
+ * @category Api
  * @package Service
  * @author  Elton Minetto<eminetto@coderockr.com>
  */
@@ -78,7 +78,7 @@ class Auth extends Service
 
         $sm = $this->getServiceManager();
         $client = $this->getEntityManager()
-                       ->getRepository('ApiModule\Model\Client')
+                       ->getRepository('Api\Model\Client')
                        ->findOneBy(array('login' => $login));
 
         if (! $client || $client->password != $password || $client->status != 'ACTIVE' ) {
@@ -137,7 +137,7 @@ class Auth extends Service
 
         //Verifies if an valid token exists in the database
         $token = $this->getEntityManager()
-                      ->getRepository('ApiModule\Model\Token')
+                      ->getRepository('Api\Model\Token')
                       ->findOneBy(array('token' => $access_token));
         
         $permissions = array();
