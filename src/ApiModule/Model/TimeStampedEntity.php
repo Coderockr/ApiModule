@@ -1,10 +1,5 @@
 <?php
-/**
- * Entities with creation timestamp 
- * @package    Api\Model
- * @author     Elton Minetto<eminetto@coderockr.com>
- */
-namespace Api\Model;
+namespace ApiModule\Model;
 
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
@@ -12,6 +7,11 @@ use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\Exception\InvalidArgumentException;
 
+/**
+ * Entities with creation timestamp 
+ * @package    ApiModule\Model
+ * @author     Elton Minetto<eminetto@coderockr.com>
+ */
 class TimeStampedEntity extends Entity
 {
     /**

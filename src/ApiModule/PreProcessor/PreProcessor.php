@@ -1,15 +1,15 @@
 <?php
-namespace Api\PreProcessor;
+namespace ApiModule\PreProcessor;
 
 
 use Zend\Mvc\MvcEvent;
-use Api\Service\Auth;
-use Api\Service\ParameterFactory;
+use ApiModule\Service\Auth;
+use ApiModule\Service\ParameterFactory;
 
 /**
- * Class responsable for pre-processing API requisitions
+ * Class responsable for pre-processing ApiModule requisitions
  * 
- * @category Api
+ * @category ApiModule
  * @package PreProcessor
  * @author  Elton Minetto<eminetto@coderockr.com>
  */
@@ -25,7 +25,7 @@ class PreProcessor
     public function process(MvcEvent $e)
     {
         $this->configureEnvironment($e);
-        $auth = $e->getApplication()->getServiceManager()->get('Api\Service\Auth');
+        $auth = $e->getApplication()->getServiceManager()->get('ApiModule\Service\Auth');
 
         $routeMatch = $e->getRouteMatch();
         $routeName = $routeMatch->getMatchedRouteName();

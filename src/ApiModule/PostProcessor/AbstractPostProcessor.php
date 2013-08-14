@@ -1,11 +1,11 @@
 <?php
 
-namespace Api\PostProcessor;
+namespace ApiModule\PostProcessor;
 
 /**
  * Absract class use by the post-proccessors
  * 
- * @category Api
+ * @category ApiModule
  * @package PostProcessor
  * @author  Elton Minetto<eminetto@coderockr.com>
  * @author  Mateus Guerra<mateus@coderockr.com>

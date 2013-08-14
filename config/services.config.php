@@ -2,7 +2,7 @@
 //RPC available services
 return array(
     'authenticate' => array(
-        'class' => 'Api\Service\Auth',
+        'class' => 'ApiModule\Service\Auth',
         'method' => 'authenticate',
         'authorization' => 0
     ),
