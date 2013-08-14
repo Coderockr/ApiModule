@@ -1,10 +1,5 @@
 <?php
-/**
- * Entity class
- * @package    ApiModule\Model
- * @author     Elton Minetto<eminetto@coderockr.com>
- */
-namespace ApiModule\Model;
+namespace Api\Model;
 
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
@@ -12,6 +7,11 @@ use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\Exception\InvalidArgumentException;
 
+/**
+ * Entity class
+ * @package    Api\Model
+ * @author     Elton Minetto<eminetto@coderockr.com>
+ */
 abstract class Entity implements InputFilterAwareInterface
 {
     /**

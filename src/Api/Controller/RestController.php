@@ -1,15 +1,15 @@
 <?php
 
-namespace ApiModule\Controller;
+namespace Api\Controller;
 
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\Mvc\MvcEvent;
-use ApiModule\Model\EntityException;
+use Api\Model\EntityException;
 
 /**
  * Class responsable for Entities REST access
  * 
- * @category ApiModule
+ * @category Api
  * @package  Controller
  * @author   Elton Minetto <eminetto@coderockr.com>
  * @author   Mateus Guerra <mateus@coderockr.com>

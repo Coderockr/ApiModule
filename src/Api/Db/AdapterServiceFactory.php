@@ -1,5 +1,5 @@
 <?php
-namespace ApiModule\Db;
+namespace Api\Db;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -9,7 +9,7 @@ use Zend\Db\Adapter\Adapter;
  * Classe responsável por criar uma nova instância do Zend\Db\Adapter\Adapter
  * de acordo com a configuração da aplicação ou do módulo
  * 
- * @category ApiModule
+ * @category Api
  * @package Db
  * @author  Elton Minetto<eminetto@coderockr.com>
  */

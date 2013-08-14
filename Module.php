@@ -1,16 +1,16 @@
 <?php
 
-namespace ApiModule;
+namespace Api;
 
 use Zend\Mvc\MvcEvent;
-use ApiModule\Service\Auth;
-use ApiModule\PreProcessor\PreProcessor;
-use ApiModule\PostProcessor\PostProcessor;
+use Api\Service\Auth;
+use Api\PreProcessor\PreProcessor;
+use Api\PostProcessor\PostProcessor;
 
 /**
  * Module configuration class
  * 
- * @category ApiModule
+ * @category Api
  */
 class Module
 {
@@ -28,12 +28,12 @@ class Module
 
         //Adds module events
         //Controller REST pre and post-processors 
-        $sharedEvents->attach('ApiModule\Controller\RestController', MvcEvent::EVENT_DISPATCH, array(new PostProcessor, 'process'), -100);
-        $sharedEvents->attach('ApiModule\Controller\RestController', MvcEvent::EVENT_DISPATCH, array(new PreProcessor, 'process'), 100);
+        $sharedEvents->attach('Api\Controller\RestController', MvcEvent::EVENT_DISPATCH, array(new PostProcessor, 'process'), -100);
+        $sharedEvents->attach('Api\Controller\RestController', MvcEvent::EVENT_DISPATCH, array(new PreProcessor, 'process'), 100);
         
         //Controller RPC pre and post-processors 
-        $sharedEvents->attach('ApiModule\Controller\RpcController', MvcEvent::EVENT_DISPATCH, array(new PostProcessor, 'process'), -100);
-        $sharedEvents->attach('ApiModule\Controller\RpcController', MvcEvent::EVENT_DISPATCH, array(new PreProcessor, 'process'), 100);
+        $sharedEvents->attach('Api\Controller\RpcController', MvcEvent::EVENT_DISPATCH, array(new PostProcessor, 'process'), -100);
+        $sharedEvents->attach('Api\Controller\RpcController', MvcEvent::EVENT_DISPATCH, array(new PreProcessor, 'process'), 100);
     }
 
     /**
@@ -73,7 +73,7 @@ class Module
     {
         return array(
             'factories' => array(
-                'ApiModule\Service\Auth' => function($sm) {
+                'Api\Service\Auth' => function($sm) {
                     $dbAdapter = $sm->get('DbAdapter');
                     return new Service\Auth($dbAdapter);
                 },

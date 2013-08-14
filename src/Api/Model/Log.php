@@ -1,44 +1,49 @@
 <?php
-namespace ApiModule\Model;
+namespace Api\Model;
 
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
-use ApiModule\Model\TimeStampedEntity;
+use Api\Model\TimeStampedEntity;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups;
 
 /**
- * Permission entity
- *
- * @category ApiModule
+ * Log entity
+ * 
+ * @category Api
  * @package Model
  * @author  Elton Minetto<eminetto@coderockr.com>
  * @author  Mateus Guerra<mateus@coderockr.com>
  *
  * @ORM\Entity
- * @ORM\Table(name="ApiPermission")
+ * @ORM\Table(name="ApiLog")
  */
-class Permission extends TimeStampedEntity
+class Log extends TimeStampedEntity
 {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer");
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @Groups({"Api\Model\Log"})
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string")
+     * 
+     * @Groups({"Api\Model\Log"})
      */
     protected $resource;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Client", inversedBy="permissionCollection", cascade={"persist", "merge", "refresh"})
+     * @ORM\ManyToOne(targetEntity="Token", inversedBy="logCollection", cascade={"persist", "merge", "refresh"})
      * 
-     * @var Client
+     * @var Token
      */
-    protected $client; 
+    protected $token;
 
     /**
      * Configuration of the Entity's filters
@@ -50,14 +55,6 @@ class Permission extends TimeStampedEntity
         if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
             $factory     = new InputFactory();
-
-            $inputFilter->add($factory->createInput(array(
-                'name'     => 'id',
-                'required' => true,
-                'filters'  => array(
-                    array('name' => 'Int'),
-                ),
-            )));
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'resource',
