@@ -1,7 +1,7 @@
 {
-    "name": "coderockr/apimodule",
+    "name": "coderockr/Api",
     "description": "Api Module for Zend Framework 2 and Doctrine 2",
-    "type": "zend-library",
+    "type": "zend-module",
     "authors": [
         {
             "name": "Mateus Guerra",
