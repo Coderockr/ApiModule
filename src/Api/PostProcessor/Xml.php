@@ -2,12 +2,11 @@
 
 namespace Api\PostProcessor;
 
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use JMS\Serializer\SerializerBuilder;
+use JMS\Serializer\SerializationContext;
 
 /**
- * Concrete class that returns JSON
+ * Concrete class that returns xml
  * 
  * @category Api
  * @package PostProcessor
@@ -20,19 +19,34 @@ class Xml extends AbstractPostProcessor
      */
     public function process()
     {
-        $serializer = new Serializer(array(new GetSetMethodNormalizer()), array('xml' => new XmlEncoder()));
+       $serializer = SerializerBuilder::create()->build();
         $content = null;
-        
-        if (isset($this->_vars['error-message'])) {
-            $content = $serializer->serialize($this->_vars['error-message'], 'xml');
+
+        if (is_array($this->_vars) && isset($this->_vars['error-message'])) {
+            if($this->_vars['error-code'] == 404) {
+                $content = $this->_vars['error-message'];
+                $this->_response = $this->_response->setStatusCode(404);
+            } else {
+                $content = $serializer->serialize($this->_vars, 'xml');
+            }
         }
 
         if (!$content) {
-            $content = $serializer->serialize($this->_vars, 'xml');         
+            try {
+                $content = array();
+                if ($class) {
+                    $content = $serializer->serialize($this->_vars, 'xml', SerializationContext::create()->setGroups(array($class)));
+                }
+                else {
+                    $content = $serializer->serialize($this->_vars, 'xml');
+                }
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
+                
+            }
         }
-        
-        $this->_response->setContent($content);
 
+        $this->_response->setContent($content);
         $headers = $this->_response->getHeaders();
         $headers->addHeaderLine('Content-Type', 'application/xml');
         $this->_response->setHeaders($headers);
