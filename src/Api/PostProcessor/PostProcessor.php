@@ -40,10 +40,10 @@ class PostProcessor
         $moduleConfig = null;
         switch ($routeName) {
             case 'restful':
-                $moduleConfig = include __DIR__ . '/../../../../' . ucfirst($module) . '/config/entities.config.php';
+                $moduleConfig = include __DIR__ . '/../../../../../../module/' . ucfirst($module) .'/config/entities.config.php';
                 break;
             case 'rpc':
-                $moduleConfig = include __DIR__ . '/../../../../' . ucfirst($module) . '/config/services.config.php';
+                $moduleConfig = include __DIR__ . '/../../../../../../module/' . ucfirst($module) . '/config/services.config.php';
                 break;
         }
 
