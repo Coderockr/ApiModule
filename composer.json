@@ -1,7 +1,7 @@
 {
     "name": "coderockr/apimodule",
     "description": "Api Module for Zend Framework 2 and Doctrine 2",
-    "type": "zend-module",
+    "type": "library",
     "authors": [
         {
             "name": "Mateus Guerra",
@@ -26,7 +26,6 @@
     "license": "BSD-3-Clause",
     "minimum-stability": "dev",
     "require": {
-        "composer/installers": "~1.0",
         "php": ">=5.3.3",
         "jms/serializer": "*",
         "symfony/serializer": "2.3.*@dev",       
