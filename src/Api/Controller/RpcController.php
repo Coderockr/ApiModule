@@ -63,7 +63,7 @@ class RpcController extends AbstractActionController
             }
         }
         $moduleConfig = include __DIR__ . 
-                        '/../../../../' . 
+                        '/../../../../../../module/' . 
                         ucfirst($module). 
                         '/config/services.config.php';
                         
