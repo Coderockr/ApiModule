@@ -87,9 +87,7 @@ class RestController extends AbstractRestfulController
         $result = $queryBuilder->getQuery()->getResult();
 
         if (!$result) {
-            $response = $this->getResponse();
-            $response->setStatusCode(404);
-            return $response;
+            throw new \Exception('Entity not found', 404);
         }
 
         return $result;
