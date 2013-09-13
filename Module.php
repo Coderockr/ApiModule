@@ -34,6 +34,14 @@ class Module
         //Controller RPC pre and post-processors 
         $sharedEvents->attach('Api\Controller\RpcController', MvcEvent::EVENT_DISPATCH, array(new PostProcessor, 'process'), -100);
         $sharedEvents->attach('Api\Controller\RpcController', MvcEvent::EVENT_DISPATCH, array(new PreProcessor, 'process'), 100);
+
+        //evento de erros da aplicação
+        $sharedEvents->attach(
+            'Zend\Mvc\Application',
+            MvcEvent::EVENT_DISPATCH_ERROR,
+            array($this, 'errorProcess'),
+            999
+        );
     }
 
     /**
@@ -130,15 +138,13 @@ class Module
 
         $postProcessor->process();
 
-        // if (
-        //     $eventParams['error'] === \Zend\Mvc\Application::ERROR_CONTROLLER_NOT_FOUND ||
-        //     $eventParams['error'] === \Zend\Mvc\Application::ERROR_ROUTER_NO_MATCH
-        // ) {
-        //     $e->getResponse()->setStatusCode(\Zend\Http\PhpEnvironment\Response::STATUS_CODE_501);
-        // } else {
-        //     $e->getResponse()->setStatusCode(\Zend\Http\PhpEnvironment\Response::STATUS_CODE_500);
-        // }
-
+        //api error
+        if (isset($vars['error-code']) && $vars['error-code'] == 404) {
+            $e->getResponse()->setStatusCode(\Zend\Http\PhpEnvironment\Response::STATUS_CODE_404);
+            $e->stopPropagation();
+            return $postProcessor->getResponse();
+        }
+        //framework error
         switch ($eventParams['error']) {
         
             case \Zend\Mvc\Application::ERROR_CONTROLLER_NOT_FOUND:
