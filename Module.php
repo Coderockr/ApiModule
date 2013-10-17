@@ -99,9 +99,14 @@ class Module
     {
         $routeMatch = $e->getRouteMatch();
 
-        $formatter = $routeMatch->getParam('formatter', false);
-        if ($formatter == false)
+        if (!$routeMatch) {
             return;
+        }
+
+        $formatter = $routeMatch->getParam('formatter', false);
+        if ($formatter == false) {
+            return;
+        }
         /** @var \Zend\Di\Di $di */
         $di = $e->getApplication()->getServiceManager()->get('di');
 
