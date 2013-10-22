@@ -68,9 +68,9 @@ class RestController extends AbstractRestfulController
         }
 
         if (isset($query['filter'])) {
-            $filter = $query['filter'];
+            $filter = json_decode($query['filter']);
             foreach ($filter as $field => $condition) {
-                $queryBuilder->andWhere($queryBuilder->expr()->like('e.' . $field, '%' . $condition . '%'));
+                $queryBuilder->andWhere($queryBuilder->expr()->like('e.' . $field, "'%" . $condition . "%'"));
             }
             unset($query['filter']);
         }
@@ -83,7 +83,7 @@ class RestController extends AbstractRestfulController
         }
 
         $queryBuilder->select('e');
-           
+
         $result = $queryBuilder->getQuery()->getResult();
 
         if (!$result) {
