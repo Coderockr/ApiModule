@@ -121,12 +121,12 @@ class Module
             $exception = $eventParams['exception'];
 
             if ($configuration['errors']['show_exceptions']['message']) {
-                $vars['error-code'] = $exception->getCode();
-                $vars['error-message'] = $exception->getMessage();
+                $vars['error_code'] = $exception->getCode();
+                $vars['error_message'] = $exception->getMessage();
             }
             
             if ($configuration['errors']['show_exceptions']['trace']) {
-                $vars['error-trace'] = $exception->getTrace();
+                $vars['error_trace'] = $exception->getTrace();
             }
         }
 
